@@ -4,7 +4,7 @@ import apis from "../../apis/projects"
 import { useParams } from "react-router-dom"
 import { CircularProgress } from "@mui/material";
 
-const District = (props) => {
+const ProjectByDistrict = (props) => {
   const params = useParams();
   const [projects, setProjects] = useState({});
   const [projectsByDistrict, setProjectsByDistrict] = useState({});
@@ -42,4 +42,4 @@ const District = (props) => {
   )
 }
 
-export default District;
+export default ProjectByDistrict;

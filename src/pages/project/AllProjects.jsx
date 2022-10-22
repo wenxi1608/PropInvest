@@ -6,7 +6,7 @@ import Filter from "../filter/Filter"
 import ReactPaginate from "react-paginate"
 import styles from "./Projects.scss"
 
-const Projects = () => {
+const AllProjects = () => {
 
   const [projects, setProjects] = useState({});
   const [loading, setLoading] = useState(true)
@@ -112,6 +112,6 @@ const Projects = () => {
 // }
 
 
-export default Projects;
+export default AllProjects;
 
 

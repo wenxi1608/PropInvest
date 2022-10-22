@@ -18,6 +18,27 @@ const apis = {
 
     return projects;
   },
+
+  getProjectDetails: async (projectName) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/projects/project-details`
+    );
+    const projects = response.data.filter((p) => {
+      return p.project === projectName;
+    });
+    return projects;
+  },
+
+  getRentalPsfByProject: async (projectName) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/projects/median-rental-psf`
+    );
+
+    const projects = response.data.Result.filter((p) => {
+      return p.project === projectName;
+    });
+    return projects;
+  },
 };
 
 export default apis;

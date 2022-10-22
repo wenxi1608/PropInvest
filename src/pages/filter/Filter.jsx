@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Link } from "react-router-dom"
-import District from "../project/District"
+import ProjectByDistrict from "../project/ProjectByDistrict"
 
 const Filter = (props) => {
 

@@ -5,8 +5,9 @@ import "./App.css";
 
 // Pages
 import Index from "./pages/index/Index";
-import Projects from "./pages/project/Projects";
-import District from "./pages/project/District";
+import AllProjects from "./pages/project/AllProjects";
+import ProjectByDistrict from "./pages/project/ProjectByDistrict";
+import ProjectPage from "./pages/project-page/ProjectPage";
 
 // Components
 import Navbar from "./components/navbar/Navbar";
@@ -17,8 +18,12 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/district/:districtNo" element={<District />} />
+        <Route path="/projects" element={<AllProjects />} />
+        <Route
+          path="/projects/district/:districtNo"
+          element={<ProjectByDistrict />}
+        />
+        <Route path="/projects/:projectName" element={<ProjectPage />} />
       </Routes>
     </div>
   );
