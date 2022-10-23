@@ -15,15 +15,18 @@ const ProjectPage = () => {
 
   const [projectDetails, setProjectDetails] = useState({})
   const [rentalData, setRentalData] = useState({})
+  const [salesData, setSalesData] = useState({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchProjects = async() => {
       const response = await apis.getProjectDetails(projectName);
       const rentalDataResponse = await apis.getRentalPsfByProject(projectName);
+      const salesDataResponse = await apis.getSalesTxnByProject(projectName);
       setProjectDetails(response);
       setRentalData(rentalDataResponse);
-      setLoading(false)
+      setSalesData(salesDataResponse);
+      setLoading(false);
     }
 
     fetchProjects()
@@ -33,6 +36,7 @@ const ProjectPage = () => {
   console.log("Project Details:", projectDetails)
   console.log("Rent Data:", rentalData)
   console.log("Loading:", loading)
+  console.log("Sales Data:", salesData)
   
   if(loading) {
     return (
@@ -53,11 +57,19 @@ const ProjectPage = () => {
       </div>
 
       <div className="sale-data">
-        <SaleData />
+        {!salesData[0]? (
+          <p>No sale transactions in the past year</p>
+        ):(
+          <SaleData details={salesData}/>
+        )}
       </div>
 
       <div className="rental-data">
-        <RentalData details={rentalData}/>
+        {!rentalData[0]? (
+          <p>No rental transactions in the past year</p>
+        ):(
+          <RentalData details={rentalData}/>
+        )}
       </div>
 
     </div>
