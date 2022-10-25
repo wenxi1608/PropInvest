@@ -17,6 +17,19 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MapsHomeWorkRoundedIcon from '@mui/icons-material/MapsHomeWorkRounded';
 
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="/">
+        PropInvest
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 const theme = createTheme();
 
 const Register = () => {
@@ -36,21 +49,15 @@ const Register = () => {
     
     try {
       const response = await apis.register(registration, "register");
-      console.log(response)
-      // if (response.data.error) {
-      //   toast.error(response);
-      //   return;
-      // }
       toast.success("Account Created");
       navigate("/dashboard");
 
     } catch (err) {
-      console.log("Err:", err)
-      toast.error(err);
+      const errMsg = err.response.data.error
+      toast.error(errMsg) 
       return;
     }
   };
-  console.log("Reg Form:", registration)
 
   return (
     <div className="registration-page">
@@ -136,6 +143,7 @@ const Register = () => {
             </Grid>
           </Box>
         </Box>
+        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
     </div>

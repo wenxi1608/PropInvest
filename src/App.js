@@ -30,10 +30,21 @@ function App() {
         />
         <Route path="/projects/:projectName" element={<ProjectPage />} />
         <Route path="/register" element={<Guest component={Register} />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Guest component={Login} />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
