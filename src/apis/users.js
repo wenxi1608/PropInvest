@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const apis = {
-  register: async (registration, type) => {
+  register: async (registrationData, type) => {
     const response = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/users/register`,
-      registration,
+      registrationData,
       {
         headers: {
           "Content-Type": "application/json",
@@ -12,6 +12,19 @@ const apis = {
       }
     );
     console.log(response);
+    return response;
+  },
+
+  login: async (loginData, type) => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/login`,
+      loginData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return response;
   },
 };

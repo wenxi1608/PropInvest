@@ -1,4 +1,4 @@
-import {useRef, useEffect, useState} from "react"
+import { useState} from "react"
 import { toast } from "react-toastify";
 import apis from "../../apis/users"
 import { useNavigate } from "react-router-dom";
@@ -6,12 +6,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -34,21 +31,21 @@ const theme = createTheme();
 
 const Register = () => {
   const navigate = useNavigate()
-  const [registration, setRegistration] = useState({ firstName: "", lastName: "", email: "", password:""})
+  const [registrationData, setRegistrationData] = useState({ firstName: "", lastName: "", email: "", password:""})
   
   const handleChange = (e) => {
-    setRegistration({
-      ...registration,
+    setRegistrationData({
+      ...registrationData,
       [e.target.name]: e.target.value,
     });
   };
+  console.log(registrationData)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(registration)
     
     try {
-      const response = await apis.register(registration, "register");
+      await apis.register(registrationData, "register");
       toast.success("Account Created");
       navigate("/dashboard");
 

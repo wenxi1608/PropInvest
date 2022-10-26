@@ -5,7 +5,7 @@ function Guest(props) {
   const user = props.user
   if (token) {
     props.setTokenState(token)
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/dashboard"} />;
   }
 
   // render props.component

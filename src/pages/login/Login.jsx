@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,9 @@ import MapsHomeWorkRoundedIcon from '@mui/icons-material/MapsHomeWorkRounded';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+import apis from '../../apis/users';
+import { toast } from 'react-toastify';
 
 function Copyright(props) {
   return (
@@ -28,17 +31,35 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+const Login = (props) => {
+  const navigate = useNavigate()
+  const [loginData, setLoginData] = useState({ email: "", password: ""})
+
+  const handleChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
     });
+  };
+  console.log("Login Details:", loginData)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await apis.login(loginData, "login");
+      // console.log(response)
+      localStorage.setItem("user_token", response.data.token);
+      props.setTokenState(response.data.token)
+      navigate("/dashboard");
+    } catch(err) {
+      toast.error(err.response.data.error)
+      return
+    }
   };
 
   return (
+    <div className="login-page">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -66,6 +87,7 @@ const Login = () => {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -76,6 +98,7 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleChange}
             />
             <Button
               type="submit"
@@ -97,6 +120,7 @@ const Login = () => {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </div>
   );
 }
 

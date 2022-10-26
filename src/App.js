@@ -13,11 +13,29 @@ import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Guest from "./components/auth/Guest";
+import jwt_decode from "jwt-decode";
 
 // Components
 import Navbar from "./components/navbar/Navbar";
 
 function App() {
+  const [tokenState, setTokenState] = useState();
+  const [user, setUser] = useState();
+
+  const token = localStorage.getItem("user_token");
+  const tokenToSend = "Bearer " + token;
+
+  const getToken = async () => {
+    setTokenState(token);
+    if (tokenState) {
+      setUser(jwt_decode(tokenState).data.email);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, [tokenState]);
+
   return (
     <div className="App">
       <Navbar />
@@ -29,9 +47,27 @@ function App() {
           element={<ProjectByDistrict />}
         />
         <Route path="/projects/:projectName" element={<ProjectPage />} />
-        <Route path="/register" element={<Guest component={Register} />} />
-        <Route path="/login" element={<Guest component={Login} />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/register"
+          element={
+            <Guest
+              component={Register}
+              setTokenState={setTokenState}
+              user={user}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Guest
+              component={Login}
+              setTokenState={setTokenState}
+              user={user}
+            />
+          }
+        />
+        {/* <Route path="/dashboard" element={<Auth component={Dashboard} />} /> */}
       </Routes>
       <ToastContainer
         position="top-center"
