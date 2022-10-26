@@ -17,7 +17,7 @@ const Index = () => {
           <div className="content-wrapper">
             <h1>Track your property investments</h1>
             <p>The one stop platform for property investors to analyse sale prices and rental rates across Singapore</p>
-            <Button variant="contained" href="/signup">Sign Up</Button>
+            <Button variant="contained" href="/register">Sign Up</Button>
           </div>
         </Grid>
         <Grid item xs={12} md={5}>
