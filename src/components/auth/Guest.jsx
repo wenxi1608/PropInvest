@@ -2,14 +2,12 @@ import { Navigate } from "react-router-dom";
 
 function Guest(props) {
   const token = localStorage.getItem("user_token");
-  const user = props.user
   if (token) {
-    props.setTokenState(token)
-    return <Navigate to={"/dashboard"} />;
+    return <Navigate to={"/watchlist"} />;
   }
 
   // render props.component
-  return <props.component setTokenState={props.setTokenState} user={user}></props.component>;
+  return <props.component></props.component>;
 }
 
 export default Guest;

@@ -12,11 +12,13 @@ import ProjectPage from "./pages/project-page/ProjectPage";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
-import Guest from "./components/auth/Guest";
+import Watchlist from "./pages/watchlist/Watchlist";
 import jwt_decode from "jwt-decode";
 
 // Components
 import Navbar from "./components/navbar/Navbar";
+import Guest from "./components/auth/Guest";
+import Auth from "./components/auth/Auth";
 
 function App() {
   const [tokenState, setTokenState] = useState();
@@ -47,27 +49,9 @@ function App() {
           element={<ProjectByDistrict />}
         />
         <Route path="/projects/:projectName" element={<ProjectPage />} />
-        <Route
-          path="/register"
-          element={
-            <Guest
-              component={Register}
-              setTokenState={setTokenState}
-              user={user}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Guest
-              component={Login}
-              setTokenState={setTokenState}
-              user={user}
-            />
-          }
-        />
-        {/* <Route path="/dashboard" element={<Auth component={Dashboard} />} /> */}
+        <Route path="/register" element={<Guest component={Register} />} />
+        <Route path="/login" element={<Guest component={Login} />} />
+        <Route path="/watchlist" element={<Auth component={Watchlist} />} />
       </Routes>
       <ToastContainer
         position="top-center"

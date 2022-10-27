@@ -44,10 +44,18 @@ export default function MenuAppBar() {
           >
             <Link to={"/"}>
               <MapsHomeWorkRoundedIcon />
+              PropInvest
             </Link>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            PropInvest
+            <Link to={"/projects"}>
+              Projects
+            </Link>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Link to={"/projects"}>
+              Watchlist
+            </Link>
           </Typography>
           {auth && (
             <div>

@@ -50,8 +50,8 @@ const Login = (props) => {
       const response = await apis.login(loginData, "login");
       // console.log(response)
       localStorage.setItem("user_token", response.data.token);
-      props.setTokenState(response.data.token)
-      navigate("/dashboard");
+      // props.setTokenState(response.data.token)
+      navigate("/watchlist");
     } catch(err) {
       toast.error(err.response.data.error)
       return
