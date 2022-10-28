@@ -6,8 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useParams } from "react-router-dom"
-import apis from "../../apis/watchlist"
+import { useParams } from "react-router-dom";
+import apis from "../../apis/watchlist";
+import { toast } from "react-toastify";
 
 const WatchlistButton = () => {
   const params = useParams()
@@ -30,8 +31,13 @@ const WatchlistButton = () => {
     
     try {
       const response = await apis.addToWatchlist(projectName, token)
-      console.log(response)
+      if(response.data.error) {
+        toast.error(response.data.error)
+      } else {
+        toast.success(`${projectName} ADDED TO WATCHLIST`);
+      }
     } catch (err) {
+      toast.error("Unable to add to watchlist")
       console.log(err)
     }
   }

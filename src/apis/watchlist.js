@@ -12,6 +12,19 @@ const apis = {
     );
     return response;
   },
+
+  getProjectsWatchedByUser: async (token) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/watchlist/lists`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    console.log("Apis response", response);
+    return response;
+  },
 };
 
 export default apis;

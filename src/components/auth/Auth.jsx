@@ -22,7 +22,7 @@ const Auth = (props) => {
   }
 
   return(
-    <props.component ></props.component>
+    <props.component></props.component>
   )
 
 }

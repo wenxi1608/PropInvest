@@ -40,7 +40,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar
+        tokenState={tokenState}
+        user={user}
+        setTokenState={setTokenState}
+      />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/projects" element={<AllProjects />} />

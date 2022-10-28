@@ -32,10 +32,10 @@ const RentalData = (props) => {
   
   // 2. Get the average of all the project's rental median results
   const avgPsf = (sumPsf / pastYrData.length).toFixed(2)
-  
+  console.log(pastYrData === null)
   return(
     <div className="data">
-      <h1>Average Rental PSF: ${avgPsf}</h1>
+      <h1>Average Rental PSF: {pastYrData === "" ? (`${avgPsf}`) : ("Not Available")}</h1>
       <h1>Transaction Volume: {pastYrData.length}</h1>
       <p>based on past year's transactions</p>
     </div>
