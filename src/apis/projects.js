@@ -30,6 +30,7 @@ const apis = {
   },
 
   getRentalPsfByProject: async (projectName) => {
+    console.log("Name passed into backend:", projectName);
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/projects/median-rental-psf`
     );
