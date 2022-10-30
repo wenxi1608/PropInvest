@@ -12,6 +12,7 @@ import apis from "../../apis/projects"
 import { Container, CircularProgress, Button } from "@mui/material";
 import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import RentalTable from './RentalTable';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,14 +25,17 @@ const Item = styled(Paper)(({ theme }) => ({
 const WatchlistCard = (props) => {
   const [rentalData, setRentalData] = useState({})
   const [loading, setLoading] = useState(true)
-
+  const [rentalTxn2022, setRentalTxn2022] = useState({})
+  
   const getProject = [props.results];
   const projectUrl = getProject.toString().replaceAll(" ", "-");
   
   useEffect(() => {
     const fetchProjects = async() => {
       const rentalDataResponse = await apis.getRentalPsfByProject(getProject[0]);
+      const rentalTxnFor2022 = await apis.get2022RentalTxnByProject(getProject[0])
       setRentalData(rentalDataResponse)
+      setRentalTxn2022(rentalTxnFor2022)
       setLoading(false)
     }
     fetchProjects()
@@ -73,7 +77,7 @@ const WatchlistCard = (props) => {
  
   if(loading) {
     return (
-      <div>< CircularProgress /></div>
+      <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress /></div>
     )
   }
 
@@ -144,7 +148,7 @@ const WatchlistCard = (props) => {
             </Grid>
           </Grid>
           <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
-            <Button variant="text">View Transactions</Button>
+            <RentalTable name={getProject[0]} data={rentalTxn2022}/>
           </Grid>
         </Box>
       </CardContent>

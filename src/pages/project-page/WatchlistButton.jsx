@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from "react-router-dom";
 import apis from "../../apis/watchlist";
 import { toast } from "react-toastify";
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 const WatchlistButton = () => {
   const params = useParams()
@@ -112,8 +113,8 @@ const WatchlistButton = () => {
         status? 
         (
           <Button variant="contained" disabled>
-            <AddRoundedIcon />
-            Add to Watchlist
+            <DoneRoundedIcon />
+            Added to Watchlist
           </Button>
         )
         :

@@ -20,8 +20,7 @@ const AllProjects = () => {
 
     fetchProjects()
   }, [])
-  console.log("projects:", projects)
-
+  
   if(loading) {
     return (
       <div>< CircularProgress/></div>
