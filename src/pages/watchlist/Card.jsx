@@ -40,27 +40,36 @@ const WatchlistCard = (props) => {
   const allRentalPsf = rentalData[0]?.rentalMedian
   
   // Get the data from two years ago (2020) and one year ago (2021)
-  const medianPsfFromTwoYearsAgo = allRentalPsf?.filter((p) => {
-    return p.refPeriod === "2020Q1" || p.refPeriod === "2020Q2" || p.refPeriod === "2020Q3" || p.refPeriod === "2020Q4"
+  const medianPsf2020 = allRentalPsf?.filter((p) => {
+    return p.refPeriod.startsWith("2020")
+    // return p.refPeriod === "2020Q1" || p.refPeriod === "2020Q2" || p.refPeriod === "2020Q3" || p.refPeriod === "2020Q4"
   });
-  const medianPsfFromOneAgo = allRentalPsf?.filter((p) => {
-    return p.refPeriod === "2021Q1" || p.refPeriod === "2021Q2" || p.refPeriod === "2021Q3" || p.refPeriod === "2021Q4"
+  const medianPsf2021 = allRentalPsf?.filter((p) => {
+    return p.refPeriod.startsWith("2021")
+    // return p.refPeriod === "2021Q1" || p.refPeriod === "2021Q2" || p.refPeriod === "2021Q3" || p.refPeriod === "2021Q4"
   });
-  console.log("Two Years Ago:", medianPsfFromTwoYearsAgo?.length)
-  let sumPsfTwoYearsAgo = 0;
-  let sumPsfOneYearAgo = 0;
-  for (let i = 0; i < medianPsfFromTwoYearsAgo?.length; i++) {
-    sumPsfTwoYearsAgo += medianPsfFromTwoYearsAgo[i].median
+  const medianPsf2022 = allRentalPsf?.filter((p) => {
+    return p.refPeriod.startsWith("2022")
+    // return p.refPeriod === "2022Q1" || p.refPeriod === "2022Q2" || p.refPeriod === "2022Q3" || p.refPeriod === "2022Q4"
+  });
+  let sumPsf2020 = 0;
+  let sumPsf2021 = 0;
+  let sumPsf2022 = 0;
+  for (let i = 0; i < medianPsf2020?.length; i++) {
+    sumPsf2020 += medianPsf2020[i].median
   }
-  for (let i = 0; i < medianPsfFromOneAgo?.length; i++) {
-    sumPsfOneYearAgo += medianPsfFromOneAgo[i].median
+  for (let i = 0; i < medianPsf2021?.length; i++) {
+    sumPsf2021 += medianPsf2021[i].median
   }
-
-  // Get the average of the median Psf from rom two years ago (2020) and one year ago (2021)
-  const avgPsfTwoYearsAgo = (sumPsfTwoYearsAgo / medianPsfFromTwoYearsAgo?.length).toFixed(2)
-  const avgPsfOneYearAgo = (sumPsfOneYearAgo / medianPsfFromOneAgo?.length).toFixed(2)
-  const percentageChange = (((avgPsfOneYearAgo - avgPsfTwoYearsAgo)/avgPsfTwoYearsAgo)*100).toFixed(2)
-  console.log(percentageChange)
+  for (let i = 0; i < medianPsf2022?.length; i++) {
+    sumPsf2022 += medianPsf2022[i].median
+  }
+  
+  // Get the average of the median Psf from 2022, 2021 and 2020
+  const avgPsf2020 = (sumPsf2020 / medianPsf2020?.length).toFixed(2)
+  const avgPsf2021 = (sumPsf2021 / medianPsf2021?.length).toFixed(2)
+  const avgPsf2022 = (sumPsf2022 / medianPsf2022?.length).toFixed(2)
+  const percentageChange = (((avgPsf2022 - avgPsf2021)/avgPsf2021)*100).toFixed(2)
  
   if(loading) {
     return (
@@ -73,55 +82,69 @@ const WatchlistCard = (props) => {
     <Card sx={{ minWidth: 275 }} variant="outlined" style={{marginBottom: "1em", textAlign:"center"}}> 
       <CardContent>
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={2}>
+          <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
+            <Grid item xs={2} md={2}>
               <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
                 <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
                 {getProject}
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={3} md={3}>
               {
-                medianPsfFromOneAgo.length !== 0 ?
-                (
-                  avgPsfOneYearAgo > avgPsfTwoYearsAgo ?
+                medianPsf2022.length !== 0 || medianPsf2021.length !== 0 ?
                   (
-                  <div>
-                    <ArrowDropUpRoundedIcon fontSize="large" color="success"/>
-                    <Typography style={{color: "green"}}>{percentageChange}%</Typography>
-                  </div>
-                  )
-                  :
-                  (
-                  <div>
-                    <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
-                    <Typography style={{color: "red"}}>{percentageChange}%</Typography>
-                  </div>
-                  )
+                    avgPsf2022 > avgPsf2021 ?
+                    (
+                    <div>
+                      <Grid container direction="row" justifyContent="center" alignItems="center">
+                        <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
+                        <Grid item><Typography style={{color: "green"}}>{percentageChange}%</Typography></Grid>
+                      </Grid>
+                    </div>
+                    )
+                    :
+                    (
+                    <div>
+                      <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
+                      <Typography style={{color: "red"}}>{percentageChange}%</Typography>
+                    </div>
+                    )
                 )
                 :
                 ("-")
               }
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={2} md={2}>
               <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianPsfFromTwoYearsAgo.length !== 0 ? 
-                (`$${avgPsfTwoYearsAgo}`)
+                {medianPsf2022.length !== 0 ? 
+                (`$${avgPsf2022}`)
                 :
                 ("No data available")
                 }
               </div>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={2} md={2}>
               <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianPsfFromOneAgo.length !== 0 ? 
-                (`$${avgPsfOneYearAgo}`)
+                {medianPsf2021.length !== 0 ? 
+                (`$${avgPsf2021}`)
                 :
                 ("No data available")
                 }
               </div>
             </Grid>
+            <Grid item xs={2} md={2}>
+              <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                {medianPsf2020.length !== 0 ? 
+                (`$${avgPsf2020}`)
+                :
+                ("No data available")
+                }
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
+            <Button variant="text">View Transactions</Button>
           </Grid>
         </Box>
       </CardContent>

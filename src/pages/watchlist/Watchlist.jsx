@@ -66,16 +66,21 @@ import CardContent from '@mui/material/CardContent';
       <Card variant="outlined" style={{marginBottom: "0.5em", marginTop: "1em", textAlign: "center"}}> 
       <CardContent>
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={2}>
+          <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
+            <Grid item xs={2} md={2}>
+              Project
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={3} md={3}>
+              % Change in Past Year
             </Grid>
-            <Grid item xs={12} md={4}>
-              2020
+            <Grid item xs={2} md={2}>
+              2022
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={2} md={2}>
               2021
+            </Grid>
+            <Grid item xs={2} md={2}>
+              2020
             </Grid>
           </Grid>
         </Box>

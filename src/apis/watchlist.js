@@ -23,7 +23,6 @@ const apis = {
         },
       }
     );
-    console.log("Apis response", response);
     return response;
   },
 };

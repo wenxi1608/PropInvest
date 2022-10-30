@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import CircularProgress from "@mui/material/CircularProgress";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -18,7 +19,31 @@ const WatchlistButton = () => {
   const tokenExists = localStorage.getItem("user_token");
   
   const [open, setOpen] = useState(false);
+  const [watchlistStatus, setWatchlistStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // To check if project already exists in watchlist, if yes, disable add button
+  useEffect(() => {
+    const fetchStatus = async() => {
+      const response = await apis.getProjectsWatchedByUser(token)
+      console.log(response)
+      setWatchlistStatus(response.data)
+      setLoading(false);
+    }
+
+    fetchStatus()
+  }, [token]);
+
+  console.log("Watchlist:", watchlistStatus)
+
+  let status = ""
+  if(watchlistStatus) {
+    status = watchlistStatus?.find(p => {
+      return p === projectName
+    })
+  }
  
+  // Handle dialog messages to inform user that they need to be logged in to add to watchlist/calculator
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -27,6 +52,7 @@ const WatchlistButton = () => {
     setOpen(false);
   };
 
+  // To add project to watchlist when user clicks on add button
   const handleSubmit = async(e) => {
     
     try {
@@ -40,6 +66,12 @@ const WatchlistButton = () => {
       toast.error("Unable to add to watchlist")
       console.log(err)
     }
+  }
+
+  if(loading) {
+    return (
+      <div>< CircularProgress/></div>
+    )
   }
   
   return(
@@ -75,10 +107,24 @@ const WatchlistButton = () => {
       )
       :
       (
-      <Button variant="contained" onClick={handleSubmit}>
-        <AddRoundedIcon />
-        Add to Watchlist
-      </Button>
+        <div>
+        {
+        status? 
+        (
+          <Button variant="contained" disabled>
+            <AddRoundedIcon />
+            Add to Watchlist
+          </Button>
+        )
+        :
+        (
+          <Button variant="contained" onClick={handleSubmit}>
+            <AddRoundedIcon />
+            Add to Watchlist
+          </Button>
+        )  
+        }
+        </div>
       )
       }
     </div>
