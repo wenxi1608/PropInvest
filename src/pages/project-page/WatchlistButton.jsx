@@ -112,9 +112,8 @@ const WatchlistButton = () => {
         {
         status? 
         (
-          <Button variant="contained" disabled>
-            <DoneRoundedIcon />
-            Added to Watchlist
+          <Button variant="contained" disabled startIcon={<DoneRoundedIcon />}>
+            In Watchlist
           </Button>
         )
         :

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -7,12 +6,15 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import {useEffect, useState} from "react"
-import apis from "../../apis/projects"
+import React, {useEffect, useState} from "react"
+import projectApis from "../../apis/projects";
+import watchlistApis from "../../apis/watchlist";
 import { Container, CircularProgress, Button } from "@mui/material";
 import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import RentalTable from './RentalTable';
+import DeleteButton from "./DeleteButton";
+import { toast } from "react-toastify";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,58 +25,106 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const WatchlistCard = (props) => {
-  const [rentalData, setRentalData] = useState({})
-  const [loading, setLoading] = useState(true)
-  const [rentalTxn2022, setRentalTxn2022] = useState({})
-  
+
+  const [loading, setLoading] = useState(true);
+  const [rentalTxn2022, setRentalTxn2022] = useState({});
+  const [rentalData, setRentalData] = useState({});
+  const [saleData, setSaleData] = useState({});
+
   const getProject = [props.results];
   const projectUrl = getProject.toString().replaceAll(" ", "-");
   
   useEffect(() => {
     const fetchProjects = async() => {
-      const rentalDataResponse = await apis.getRentalPsfByProject(getProject[0]);
-      const rentalTxnFor2022 = await apis.get2022RentalTxnByProject(getProject[0])
-      setRentalData(rentalDataResponse)
-      setRentalTxn2022(rentalTxnFor2022)
-      setLoading(false)
+      const rentalDataResponse = await projectApis.getRentalPsfByProject(getProject[0]);
+      const saleDataResponse = await projectApis.getSalesTxnByProject(getProject[0]);
+      const rentalTxnFor2022 = await projectApis.get2022RentalTxnByProject(getProject[0]);
+      setRentalData(rentalDataResponse);
+      setSaleData(saleDataResponse);
+      setRentalTxn2022(rentalTxnFor2022);
+      setLoading(false);
     }
     fetchProjects()
   }, [])
+
+  // Remove project from watchlist when user clicks on delete button
+  const handleDelete = async() => {
+    
+    try {
+      const response = await watchlistApis.deleteFromWatchlist(getProject, props.token)
+      if(response.data.error) {
+        toast.error(response.data.error)
+      } else {
+        toast.success(`${getProject} REMOVED FROM WATCHLIST`);
+      }
+    } catch (err) {
+      toast.error("Unable to remove from watchlist")
+      console.log(err)
+    }
+  }
   
+  // RENTAL DATA
   const allRentalPsf = rentalData[0]?.rentalMedian
   
-  // Get the data from two years ago (2020) and one year ago (2021)
-  const medianPsf2020 = allRentalPsf?.filter((p) => {
+  // Get the data for past 3 years
+  const medianRentPsf2020 = allRentalPsf?.filter((p) => {
     return p.refPeriod.startsWith("2020")
     // return p.refPeriod === "2020Q1" || p.refPeriod === "2020Q2" || p.refPeriod === "2020Q3" || p.refPeriod === "2020Q4"
   });
-  const medianPsf2021 = allRentalPsf?.filter((p) => {
+  const medianRentPsf2021 = allRentalPsf?.filter((p) => {
     return p.refPeriod.startsWith("2021")
     // return p.refPeriod === "2021Q1" || p.refPeriod === "2021Q2" || p.refPeriod === "2021Q3" || p.refPeriod === "2021Q4"
   });
-  const medianPsf2022 = allRentalPsf?.filter((p) => {
+  const medianRentPsf2022 = allRentalPsf?.filter((p) => {
     return p.refPeriod.startsWith("2022")
     // return p.refPeriod === "2022Q1" || p.refPeriod === "2022Q2" || p.refPeriod === "2022Q3" || p.refPeriod === "2022Q4"
   });
-  let sumPsf2020 = 0;
-  let sumPsf2021 = 0;
-  let sumPsf2022 = 0;
-  for (let i = 0; i < medianPsf2020?.length; i++) {
-    sumPsf2020 += medianPsf2020[i].median
+  let sumPsfRent2020 = 0;
+  let sumPsfRent2021 = 0;
+  let sumPsfRent2022 = 0;
+  for (let i = 0; i < medianRentPsf2020?.length; i++) {
+    sumPsfRent2020 += medianRentPsf2020[i].median
   }
-  for (let i = 0; i < medianPsf2021?.length; i++) {
-    sumPsf2021 += medianPsf2021[i].median
+  for (let i = 0; i < medianRentPsf2021?.length; i++) {
+    sumPsfRent2021 += medianRentPsf2021[i].median
   }
-  for (let i = 0; i < medianPsf2022?.length; i++) {
-    sumPsf2022 += medianPsf2022[i].median
+  for (let i = 0; i < medianRentPsf2022?.length; i++) {
+    sumPsfRent2022 += medianRentPsf2022[i].median
   }
   
   // Get the average of the median Psf from 2022, 2021 and 2020
-  const avgPsf2020 = (sumPsf2020 / medianPsf2020?.length).toFixed(2)
-  const avgPsf2021 = (sumPsf2021 / medianPsf2021?.length).toFixed(2)
-  const avgPsf2022 = (sumPsf2022 / medianPsf2022?.length).toFixed(2)
-  const percentageChange = (((avgPsf2022 - avgPsf2021)/avgPsf2021)*100).toFixed(2)
+  const avgRentPsf2020 = (sumPsfRent2020 / medianRentPsf2020?.length).toFixed(2)
+  const avgRentPsf2021 = (sumPsfRent2021 / medianRentPsf2021?.length).toFixed(2)
+  const avgRentPsf2022 = (sumPsfRent2022 / medianRentPsf2022?.length).toFixed(2)
+  const percentageChange = (((avgRentPsf2022 - avgRentPsf2021)/avgRentPsf2021)*100).toFixed(2)
  
+  // SALE DATA
+  const allSaleData = saleData[0]?.transaction;
+
+  // Get the data for past 3 years
+  const saleData2020 = allSaleData?.filter((p) => {
+    return p.contractDate?.endsWith("20")
+  });
+  const saleData2021 = allSaleData?.filter((p) => {
+    return p.contractDate?.endsWith("21")
+  });
+  const saleData2022 = allSaleData?.filter((p) => {
+    return p.contractDate?.endsWith("22")
+  });
+  const saleData2020ByPsf = saleData2020?.map((p) => {
+   return p.price / (p.area * 10.76391042) // convert sqm to sqft
+  })
+  const saleData2021ByPsf = saleData2021?.map((p) => {
+    return p.price / (p.area * 10.76391042) // convert sqm to sqft
+   })
+   const saleData2022ByPsf = saleData2022?.map((p) => {
+    return p.price / (p.area * 10.76391042) // convert sqm to sqft
+   })
+  const psfSale2020 = (saleData2020ByPsf?.reduce((a, b) => a + b, 0) / saleData2020ByPsf?.length).toFixed(2);
+  const psfSale2021 = (saleData2021ByPsf?.reduce((a, b) => a + b, 0) / saleData2021ByPsf?.length).toFixed(2);
+  const psfSale2022 = (saleData2022ByPsf?.reduce((a, b) => a + b, 0) / saleData2022ByPsf?.length).toFixed(2);
+
+  console.log("Type:", props.dataType)
   if(loading) {
     return (
       <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress /></div>
@@ -90,15 +140,15 @@ const WatchlistCard = (props) => {
             <Grid item xs={2} md={2}>
               <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
                 <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-                {getProject}
+                  {getProject}
                 </Typography>
               </Link>
             </Grid>
             <Grid item xs={3} md={3}>
               {
-                medianPsf2022.length !== 0 || medianPsf2021.length !== 0 ?
+                medianRentPsf2022.length !== 0 || medianRentPsf2021.length !== 0 ?
                   (
-                    avgPsf2022 > avgPsf2021 ?
+                    avgRentPsf2022 > avgRentPsf2021 ?
                     (
                     <div>
                       <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -121,30 +171,33 @@ const WatchlistCard = (props) => {
             </Grid>
             <Grid item xs={2} md={2}>
               <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianPsf2022.length !== 0 ? 
-                (`$${avgPsf2022}`)
-                :
-                ("No data available")
+                {medianRentPsf2022.length !== 0 ? 
+                  (`$${avgRentPsf2022}`)
+                  :
+                  ("No data available")
                 }
               </div>
             </Grid>
             <Grid item xs={2} md={2}>
               <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianPsf2021.length !== 0 ? 
-                (`$${avgPsf2021}`)
-                :
-                ("No data available")
+                {medianRentPsf2021.length !== 0 ? 
+                  (`$${avgRentPsf2021}`)
+                  :
+                  ("No data available")
                 }
               </div>
             </Grid>
             <Grid item xs={2} md={2}>
               <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianPsf2020.length !== 0 ? 
-                (`$${avgPsf2020}`)
+                {medianRentPsf2020.length !== 0 ? 
+                (`$${avgRentPsf2020}`)
                 :
                 ("No data available")
                 }
               </div>
+            </Grid>
+            <Grid item xs={1} md={1}>
+              {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
             </Grid>
           </Grid>
           <Grid container direction="row" justifyContent="center" alignItems="flex-end" >

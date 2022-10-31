@@ -10,7 +10,6 @@ import ProjectByDistrict from "../project/ProjectByDistrict"
 const Filter = (props) => {
 
 // Get the unique list of the districts
-console.log(props.districts)
 
   return (
     <Box sx={{ minWidth: 120 }}>

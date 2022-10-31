@@ -91,10 +91,10 @@ const RentalTable = (props) => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
+                <TableCell>Lease Date (MMYY)</TableCell>
                 <TableCell>Area (sqft)</TableCell>
-                <TableCell align="right">Lease Date (MMYY)</TableCell>
-                <TableCell align="right">No. Of Bedrooms</TableCell>
-                <TableCell align="right">Rent ($)</TableCell>
+                <TableCell>No. Of Bedrooms</TableCell>
+                <TableCell>Rent ($)</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -103,10 +103,10 @@ const RentalTable = (props) => {
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">{row.areaSqft}</TableCell>
-                <TableCell align="right">{row.leaseDate}</TableCell>
-                <TableCell align="right">{row.noOfBedRoom}</TableCell>
-                <TableCell align="right">{row.rent}</TableCell>
+                <TableCell component="th" scope="row">{row.leaseDate}</TableCell>
+                <TableCell>{row.areaSqft}</TableCell>
+                <TableCell>{row.noOfBedRoom}</TableCell>
+                <TableCell>{row.rent.toLocaleString()}</TableCell>
               </TableRow>
             ))
             }

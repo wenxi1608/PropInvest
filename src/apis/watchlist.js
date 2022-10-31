@@ -25,6 +25,18 @@ const apis = {
     );
     return response;
   },
+
+  deleteFromWatchlist: async (projectName, token) => {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/watchlist/delete/${projectName}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response;
+  },
 };
 
 export default apis;

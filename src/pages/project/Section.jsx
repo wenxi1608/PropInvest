@@ -9,12 +9,10 @@ const Section = (props) => {
   
 // Sort projects by alphabetical order
 const sortedProjects = props.results.sort()
-console.log("sorted Projects:", sortedProjects)
 
 // District Filter
 const districts = new Set(props.district)
 const sortedDistricts = Array.from(districts).sort((a, b) => a - b);
-console.log("sorted Districts:", sortedDistricts)
 const [districtFilter, setDistrictFilter] = useState("")
 const handleChange = (event) => {
   setDistrictFilter(event.target.value);

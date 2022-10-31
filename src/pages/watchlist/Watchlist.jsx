@@ -1,4 +1,3 @@
-// import jwt_decode from "jwt-decode"; 
 import React, { useEffect, useState } from "react";
 import apis from "../../apis/watchlist";
 import WatchlistCard from "./Card";
@@ -10,84 +9,56 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Section from "./Section";
+import DeleteButton from "./DeleteButton";
 
- const Watchlist = () => {
+const Watchlist = () => {
 
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
-  const [watchedProjects, setWatchedProjects] = useState();
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    const fetchProjects = async() => {
-      const response = await apis.getProjectsWatchedByUser(token);
-      setWatchedProjects(response.data);
-      setLoading(false);
-    }
-
-    fetchProjects()
-  }, [token]);
-
-  const allProjectsInWatchlist = watchedProjects?.map(p => <WatchlistCard key={p} results={p}/>);
-  
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
+  const handleClickOnRent = async() => {
+    console.info("Rent");
   };
 
-  if(loading) {
-    return (
-      <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress /></div>
-    )
+  const handleClickOnSale = async() => {
+    console.info("Sale");
+  };
+
+  const [edit, setEdit] = useState(false);
+
+  const handleEdit = (event) => {
+    setEdit(current => !current)
   }
+  console.log("edit:", edit)
 
   return(
     <div>
+      {tokenExists? 
+      (
+      <div>
       <Container>
         <Grid container spacing={{ md: 3}} columns={{ sm: 8, md: 12}}> 
           <Grid item xs={10}>
             <h1>Property Watchlist</h1>
           </Grid>
           <Grid item xs={2} alignContent="center">
-            <Button variant="outlined">
-              <EditRoundedIcon/>
-              Edit list
-            </Button>
+            <Button variant="outlined" startIcon={<EditRoundedIcon/>} onClick={handleEdit}>Edit</Button>
           </Grid>
         </Grid>
       </Container>
       <Container>
         <Stack direction="row" spacing={1}>
-          <Chip label="Rent Psf" variant="outlined" onClick={handleClick} />
-          <Chip label="Sale Psf" variant="outlined" onClick={handleClick} disabled={true} />
+          <Chip label="Rent Psf" variant="outlined" onClick={handleClickOnRent} />
+          <Chip label="Sale Psf" variant="outlined" onClick={handleClickOnSale} />
         </Stack>
       </Container>
-      <Container>
-      <Card variant="outlined" style={{marginBottom: "0.5em", marginTop: "1em", textAlign: "center"}}> 
-      <CardContent>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
-            <Grid item xs={2} md={2}>
-              Project
-            </Grid>
-            <Grid item xs={3} md={3}>
-              % Change in Past Year
-            </Grid>
-            <Grid item xs={2} md={2}>
-              2022
-            </Grid>
-            <Grid item xs={2} md={2}>
-              2021
-            </Grid>
-            <Grid item xs={2} md={2}>
-              2020
-            </Grid>
-          </Grid>
-        </Box>
-      </CardContent>
-    </Card>
-        {allProjectsInWatchlist}
-      </Container>
+      <Section token={token} edit={edit}/>
+      </div>
+      )
+      :
+      ("You must be logged in")
+      }
     </div>
   )
  }
