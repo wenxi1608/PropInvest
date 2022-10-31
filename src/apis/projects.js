@@ -20,13 +20,18 @@ const apis = {
   },
 
   getProjectDetails: async (projectName) => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/projects/project-details`
-    );
-    const projects = response.data.filter((p) => {
-      return p.project === projectName;
-    });
-    return projects;
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/projects/project-details`
+      );
+      console.log("getProjectDetails >>>", response);
+      const projects = response.data.filter((p) => {
+        return p.project === projectName;
+      });
+      return projects;
+    } catch (error) {
+      console.log("getProjectDetails Error >>>", error);
+    }
   },
 
   getRentalPsfByProject: async (projectName) => {
