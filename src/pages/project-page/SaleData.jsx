@@ -11,7 +11,6 @@ const SaleData = (props) => {
   const pastYrSalesPsf = pastYrData.map((p) => {
     return p.price / (p.area * 10.76391042)
   })
-  console.log("Sales Psf:", pastYrSalesPsf)
 
   // 3. Get the average of all project's sales results
   let sumPsf = 0
@@ -22,11 +21,9 @@ const SaleData = (props) => {
   const avgPsf = (sumPsf / pastYrSalesPsf.length).toFixed(2)
   const formattedAvgPsf = Number(avgPsf).toLocaleString('en-US');
 
-  console.log("avg Sales Psf:", formattedAvgPsf)
-
   return(
     <div className="data">
-    <h1>Average Sale Price PSF: ${formattedAvgPsf}</h1>
+    <h1>Average Sale Price PSF: {pastYrSalesPsf.length === 0 ? ("Not available") : (`$${formattedAvgPsf}`)}</h1>
     <h1>Transaction Volume: {pastYrSalesPsf.length}</h1>
     <p>based on past year's transactions</p>
   </div>

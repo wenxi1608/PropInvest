@@ -12,38 +12,14 @@ import apis from "../../apis/watchlist";
 import { toast } from "react-toastify";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
-const WatchlistButton = () => {
-  const params = useParams()
-  const projectName = params.projectName.replaceAll("-", " ");
+const WatchlistButton = (props) => {
 
-  const token = "Bearer " + localStorage.getItem("user_token");
-  const tokenExists = localStorage.getItem("user_token");
+  // const inWatchlist = props.watchlistStatus?.find(p => {
+  //     return p === props.projectName
+  //   })
   
   const [open, setOpen] = useState(false);
-  const [watchlistStatus, setWatchlistStatus] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  // To check if project already exists in watchlist, if yes, disable add button
-  useEffect(() => {
-    const fetchStatus = async() => {
-      const response = await apis.getProjectsWatchedByUser(token)
-      console.log(response)
-      setWatchlistStatus(response.data)
-      setLoading(false);
-    }
-
-    fetchStatus()
-  }, [token]);
-
-  console.log("Watchlist:", watchlistStatus)
-
-  let status = ""
-  if(watchlistStatus) {
-    status = watchlistStatus?.find(p => {
-      return p === projectName
-    })
-  }
- 
+  
   // Handle dialog messages to inform user that they need to be logged in to add to watchlist/calculator
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,32 +28,10 @@ const WatchlistButton = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // To add project to watchlist when user clicks on add button
-  const handleSubmit = async(e) => {
-    
-    try {
-      const response = await apis.addToWatchlist(projectName, token)
-      if(response.data.error) {
-        toast.error(response.data.error)
-      } else {
-        toast.success(`${projectName} ADDED TO WATCHLIST`);
-      }
-    } catch (err) {
-      toast.error("Unable to add to watchlist")
-      console.log(err)
-    }
-  }
-
-  if(loading) {
-    return (
-      <div>< CircularProgress/></div>
-    )
-  }
   
   return(
     <div>
-      {!tokenExists? 
+      {!props.tokenExists? 
       (
         <div>
         <Button variant="contained" onClick={handleClickOpen}>
@@ -110,7 +64,7 @@ const WatchlistButton = () => {
       (
         <div>
         {
-        status? 
+        props.watchlistStatus || props.watched === true? 
         (
           <Button variant="contained" disabled startIcon={<DoneRoundedIcon />}>
             In Watchlist
@@ -118,7 +72,7 @@ const WatchlistButton = () => {
         )
         :
         (
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" onClick={() => props.handleSubmit()}>
             <AddRoundedIcon />
             Add to Watchlist
           </Button>

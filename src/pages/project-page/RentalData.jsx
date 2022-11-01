@@ -17,7 +17,6 @@ const RentalData = (props) => {
 
     fetchProjects()
   }, [])
-  console.log(allDistrictData)
 
   // 1. Get the past year's rental data for the selected project (i.e. all 4 quarters of 2021)
   let sumPsf = 0
@@ -35,7 +34,7 @@ const RentalData = (props) => {
   
   return(
     <div className="data">
-      <h1>Average Rental PSF: {pastYrData.length !== 0 ? (`$${avgPsf}`) : ("No data available")}</h1>
+      <h1>Average Rental PSF: {pastYrData.length !== 0 ? (`$${avgPsf}`) : ("Not available")}</h1>
       <h1>Transaction Volume: {pastYrData.length}</h1>
       <p>based on past year's transactions</p>
     </div>
