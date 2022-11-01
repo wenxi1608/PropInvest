@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProjectCard from "./Card";
-import Filter from "../filter/Filter"
+import Filter from "./Filter"
 import ReactPaginate from "react-paginate";
 import styles from "./Projects.scss";
 import { Container } from "@mui/material";
@@ -9,14 +9,6 @@ const Section = (props) => {
   
 // Sort projects by alphabetical order
 const sortedProjects = props.results.sort()
-
-// District Filter
-const districts = new Set(props.district)
-const sortedDistricts = Array.from(districts).sort((a, b) => a - b);
-const [districtFilter, setDistrictFilter] = useState("")
-const handleChange = (event) => {
-  setDistrictFilter(event.target.value);
-};
 
 // Pagination
 const [page, setPage] = useState(0);
@@ -35,8 +27,7 @@ const changePage = ({selected}) => {
 
   return(
     <div>
-      <Filter districts={sortedDistricts} handleChange={handleChange}  districtSelected={districtFilter}/>
-        
+      
       <Container>
         {displayProjects}
       </Container>

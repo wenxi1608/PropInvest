@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import apis from "../src/apis/projects";
+import { CircularProgress } from "@mui/material";
 
 // Pages
 import Index from "./pages/index/Index";
@@ -26,6 +28,8 @@ import Auth from "./components/auth/Auth";
 function App() {
   const [tokenState, setTokenState] = useState();
   const [user, setUser] = useState();
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("user_token");
   const tokenToSend = "Bearer " + token;
@@ -41,6 +45,36 @@ function App() {
     getToken();
   }, [tokenState]);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await apis.getAllProjects();
+      setProjects(response);
+      setLoading(false);
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Get all the district numbers: (i) get unique no.s, (ii) sort by ascending
+  const allDistricts = projects?.map((p) => {
+    return p.rentalMedian[0].district;
+  });
+  const districtNo = new Set(allDistricts);
+  const sortedDistricts = Array.from(districtNo).sort((a, b) => a - b);
+
+  console.log("Projects:", projects);
+  console.log("All Districts:", allDistricts);
+  console.log("District No:", districtNo);
+  console.log("Sorted Districts:", sortedDistricts);
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", margin: "1em" }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <Navbar
@@ -50,10 +84,23 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/projects" element={<AllProjects />} />
+        <Route
+          path="/projects"
+          element={
+            <AllProjects
+              projects={projects}
+              sortedDistricts={sortedDistricts}
+            />
+          }
+        />
         <Route
           path="/projects/district/:districtNo"
-          element={<ProjectByDistrict />}
+          element={
+            <ProjectByDistrict
+              projects={projects}
+              sortedDistricts={sortedDistricts}
+            />
+          }
         />
         <Route path="/projects/:projectName" element={<ProjectPage />} />
         <Route path="/register" element={<Guest component={Register} />} />

@@ -69,7 +69,7 @@ const ProjectPage = () => {
   
   if(loading) {
     return (
-      <div>< CircularProgress/></div>
+      <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress/></div>
     )
   }
 

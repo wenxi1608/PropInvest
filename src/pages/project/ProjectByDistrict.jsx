@@ -3,40 +3,28 @@ import Section from "./Section"
 import apis from "../../apis/projects"
 import { useParams } from "react-router-dom"
 import { CircularProgress } from "@mui/material";
+import Filter from "./Filter";
 
 const ProjectByDistrict = (props) => {
   const params = useParams();
-  const [projects, setProjects] = useState({});
-  const [projectsByDistrict, setProjectsByDistrict] = useState({});
-  const [loading, setLoading] = useState(true)
+  const projectsByDistrict = props.projects?.filter((p) => {
+    return p.rentalMedian[0].district === params.districtNo;
+  });
+  console.log("projects by district:", projectsByDistrict)
 
-  useEffect(() => {
-    const fetchProjects = async() => {
-      const all = await apis.getAllProjects();
-      setProjects(all);
-      const byDistrict = await apis.getProjectsByDistrict(params.districtNo);
-      setProjectsByDistrict(byDistrict);
-      setLoading(false)
-    }
-
-    fetchProjects()
-  }, [])
-
-  console.log("Projects by district:", projectsByDistrict)
-
-  if(loading) {
-    return (
-      <div>< CircularProgress/></div>
-    )
-  }
+  const [districtFilter, setDistrictFilter] = useState("");
+  
+  const handleChange = (event) => {
+    setDistrictFilter(event.target.value);
+  };
+  console.log("District Filter:", districtFilter)
 
   return (
     <>
-      <h1>District</h1>
+      <h1>District {params.districtNo}</h1>
+      <Filter districts={props.sortedDistricts} handleChange={handleChange} districtFilter={districtFilter}/>
       <Section 
-      title="section"
-      results={projectsByDistrict.map((p) => {return p.project})} 
-      district={projects.map((p) => {return p.rentalMedian[0].district})}
+      results={projectsByDistrict?.map((p) => {return p.project})} 
       />
     </>
   )

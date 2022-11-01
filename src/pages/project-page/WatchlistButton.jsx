@@ -13,6 +13,11 @@ import { toast } from "react-toastify";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 const WatchlistButton = (props) => {
+
+  // Check if project exists in user watchlist
+  const projectMatch = props.watchlistStatus.find((p) => {
+    return p === props.projectName
+  })
   
   const [open, setOpen] = useState(false);
   
@@ -60,7 +65,7 @@ const WatchlistButton = (props) => {
       (
         <div>
         {
-        props.watchlistStatus || props.watched === true? 
+        projectMatch || props.inWatchlist === true? 
         (
           <Button variant="contained" disabled startIcon={<DoneRoundedIcon />}>
             In Watchlist

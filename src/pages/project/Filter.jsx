@@ -5,21 +5,22 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Link } from "react-router-dom"
-import ProjectByDistrict from "../project/ProjectByDistrict"
+import ProjectByDistrict from "./ProjectByDistrict"
+import { textAlign } from '@mui/system';
 
 const Filter = (props) => {
 
 // Get the unique list of the districts
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120 }} style={{marginLeft: "2em"}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">District</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={props.districtSelected}
-          label="district"
+      <InputLabel id="district">Search By District</InputLabel>
+        <Select style={{ width: "20em"}}
+        variant="filled"
+        displayEmpty={true}
+          value={props.districtFilter}
+          label="District"
           onChange={props.handleChange}
         >
           {props.districts.map(d => (
