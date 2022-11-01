@@ -41,16 +41,14 @@ const Login = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log("Login Details:", loginData)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
       const response = await apis.login(loginData, "login");
-      // console.log(response)
       localStorage.setItem("user_token", response.data.token);
-      // props.setTokenState(response.data.token)
+      props.setTokenState(response.data.token)
       navigate("/watchlist");
     } catch(err) {
       toast.error(err.response.data.error)

@@ -54,7 +54,16 @@ function App() {
         />
         <Route path="/projects/:projectName" element={<ProjectPage />} />
         <Route path="/register" element={<Guest component={Register} />} />
-        <Route path="/login" element={<Guest component={Login} />} />
+        <Route
+          path="/login"
+          element={
+            <Guest
+              component={Login}
+              setTokenState={setTokenState}
+              user={user}
+            />
+          }
+        />
         <Route path="/watchlist" element={<Auth component={Watchlist} />} />
       </Routes>
       <ToastContainer

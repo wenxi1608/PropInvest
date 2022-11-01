@@ -1,6 +1,6 @@
 import MapsHomeWorkRoundedIcon from '@mui/icons-material/MapsHomeWorkRounded';
 import { Link } from "react-router-dom";
-import * as React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,11 +15,10 @@ import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Logout from "../logout/Logout"
 
 const Navbar = (props) => {
  
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +38,7 @@ const Navbar = (props) => {
       toast.success("You are now logged out");
       navigate("/");
     }
-  }    
+  }   
 
   return(
     <Box sx={{ flexGrow: 1 }}>
