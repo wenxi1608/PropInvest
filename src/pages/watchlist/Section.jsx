@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import apis from "../../apis/watchlist";
 import WatchlistCard from "./Card";
-import { Container, CircularProgress } from "@mui/material";
+import { Container, CircularProgress, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,8 +12,6 @@ const Section = (props) => {
 
   const [watchedProjects, setWatchedProjects] = useState();
   const [loading, setLoading] = useState(true);
-
-  console.log("props.edit:", props.edit);
   
   useEffect(() => {
     const fetchProjects = async() => {
@@ -25,7 +23,7 @@ const Section = (props) => {
     fetchProjects()
   }, []);
 
-  const allProjectsInWatchlist = watchedProjects?.map(p => <WatchlistCard key={p} results={p} token={props.token} edit={props.edit}/>);
+  const allProjectsInWatchlist = watchedProjects?.map(p => <WatchlistCard key={p} results={p} token={props.token} edit={props.edit} dataType={props.dataType}/>);
   
   if(loading) {
     return (

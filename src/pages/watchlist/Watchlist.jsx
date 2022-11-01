@@ -17,20 +17,20 @@ const Watchlist = () => {
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
+  // Allow user to toggle between either rent or sale data to display
+  const [dataType, setDataType] = useState("rent");
   const handleClickOnRent = async() => {
-    console.info("Rent");
+    setDataType("Rent");
   };
-
   const handleClickOnSale = async() => {
-    console.info("Sale");
+    setDataType("Sale");
   };
 
+  // Edit button to show delete component
   const [edit, setEdit] = useState(false);
-
   const handleEdit = (event) => {
     setEdit(current => !current)
   }
-  console.log("edit:", edit)
 
   return(
     <div>
@@ -49,11 +49,11 @@ const Watchlist = () => {
       </Container>
       <Container>
         <Stack direction="row" spacing={1}>
-          <Chip label="Rent Psf" variant="outlined" onClick={handleClickOnRent} />
-          <Chip label="Sale Psf" variant="outlined" onClick={handleClickOnSale} />
+          <Chip label="Rent Psf" variant="outlined" color="primary" onClick={handleClickOnRent} />
+          <Chip label="Sale Psf" variant="outlined" color="primary" onClick={handleClickOnSale} />
         </Stack>
       </Container>
-      <Section token={token} edit={edit}/>
+      <Section token={token} edit={edit} dataType={dataType}/>
       </div>
       )
       :

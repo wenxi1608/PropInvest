@@ -97,15 +97,15 @@ const WatchlistCard = (props) => {
   const avgRentPsf2021 = (sumPsfRent2021 / medianRentPsf2021?.length).toFixed(2)
   const avgRentPsf2022 = (sumPsfRent2022 / medianRentPsf2022?.length).toFixed(2)
 
-  // Get the YoY change
-  let change = "";
-  let percentageChange = "";
+  // Get the YoY rentChange
+  let rentChange = "";
+  let rentPercentageChange = "";
   if(sumPsfRent2022 === 0 || sumPsfRent2021 === 0 ) {
-    change = "N.A.";
-    percentageChange = "N.A.";
+    rentChange = "N.A.";
+    rentPercentageChange = "N.A.";
   } else {
-    change = (avgRentPsf2022 - avgRentPsf2021).toFixed(2)
-    percentageChange = ((change/avgRentPsf2021)*100).toFixed(2)
+    rentChange = (avgRentPsf2022 - avgRentPsf2021).toFixed(2)
+    rentPercentageChange = ((rentChange/avgRentPsf2021)*100).toFixed(2)
   }
  
   // SALE DATA
@@ -130,9 +130,23 @@ const WatchlistCard = (props) => {
    const saleData2022ByPsf = saleData2022?.map((p) => {
     return p.price / (p.area * 10.76391042) // convert sqm to sqft
    })
-  const psfSale2020 = (saleData2020ByPsf?.reduce((a, b) => a + b, 0) / saleData2020ByPsf?.length).toFixed(2);
-  const psfSale2021 = (saleData2021ByPsf?.reduce((a, b) => a + b, 0) / saleData2021ByPsf?.length).toFixed(2);
-  const psfSale2022 = (saleData2022ByPsf?.reduce((a, b) => a + b, 0) / saleData2022ByPsf?.length).toFixed(2);
+  const avgSalePsf2020 = ((saleData2020ByPsf?.reduce((a, b) => a + b, 0) / saleData2020ByPsf?.length)).toFixed(2);
+  const avgSalePsf2021 = ((saleData2021ByPsf?.reduce((a, b) => a + b, 0) / saleData2021ByPsf?.length)).toFixed(2);
+  const avgSalePsf2022 = ((saleData2022ByPsf?.reduce((a, b) => a + b, 0) / saleData2022ByPsf?.length)).toFixed(2);
+  const avgSalePsf2020Formatted = Number(avgSalePsf2020).toLocaleString("en-US")
+  const avgSalePsf2021Formatted = Number(avgSalePsf2021).toLocaleString("en-US")
+  const avgSalePsf2022Formatted = Number(avgSalePsf2022).toLocaleString("en-US")
+
+  // Get the YoY saleChange
+  let saleChange = "";
+  let salePercentageChange = "";
+  if(isNaN(avgSalePsf2022) || isNaN(avgSalePsf2021)) {
+    saleChange = "N.A.";
+    salePercentageChange = "N.A.";
+  } else {
+    saleChange = (avgSalePsf2022 - avgSalePsf2021).toFixed(2)
+    salePercentageChange = ((saleChange/avgSalePsf2021)*100).toFixed(2)
+  }
 
   if(loading) {
     return (
@@ -141,30 +155,57 @@ const WatchlistCard = (props) => {
   }
 
   return (
-    
-    <Card sx={{ minWidth: 275 }} variant="outlined" style={{marginBottom: "1em", textAlign:"center"}}> 
-      <CardContent>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
-            <Grid item xs={2} md={2}>
-              <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
-                <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-                  {getProject}
-                </Typography>
-              </Link>
-            </Grid>
-            <Grid item xs={2} md={2}>
-              {
-                change === "N.A."?
-                ("-")
-                :
-                (
+    <div>
+    {props.dataType === "Rent" ?
+    (
+      <Card sx={{ minWidth: 275 }} variant="outlined" style={{marginBottom: "1em", textAlign:"center"}}> 
+        <CardContent>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
+              <Grid item xs={2} md={2}>
+                <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
+                  <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+                    {getProject}
+                  </Typography>
+                </Link>
+              </Grid>
+              <Grid item xs={2} md={2}>
+                {
+                  rentChange === "N.A."?
+                  ("-")
+                  :
+                  (
+                        avgRentPsf2022 > avgRentPsf2021 ?
+                        (
+                        <div>
+                          <Grid container direction="row" justifyContent="center" alignItems="center">
+                            <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
+                            <Grid item><Typography style={{color: "green"}}>${rentChange}</Typography></Grid>
+                          </Grid>
+                        </div>
+                        )
+                        :
+                        (
+                        <div>
+                          <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
+                          <Typography style={{color: "red"}}>{rentPercentageChange}%</Typography>
+                        </div>
+                        )
+                  )
+                } 
+              </Grid>
+              <Grid item xs={2} md={2}>
+                {
+                  rentPercentageChange === "N.A."?
+                  ("-")
+                  :
+                    (
                       avgRentPsf2022 > avgRentPsf2021 ?
                       (
                       <div>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                           <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
-                          <Grid item><Typography style={{color: "green"}}>{change}</Typography></Grid>
+                          <Grid item><Typography style={{color: "green"}}>{rentPercentageChange === "N.A." ? (`${rentPercentageChange}`):(`${rentPercentageChange}%`)}</Typography></Grid>
                         </Grid>
                       </div>
                       )
@@ -172,74 +213,153 @@ const WatchlistCard = (props) => {
                       (
                       <div>
                         <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
-                        <Typography style={{color: "red"}}>{percentageChange}%</Typography>
+                        <Typography style={{color: "red"}}>{rentPercentageChange}%</Typography>
                       </div>
                       )
-                )
-              } 
-            </Grid>
-            <Grid item xs={2} md={2}>
-              {
-                percentageChange === "N.A."?
-                ("-")
-                :
-                  (
-                    avgRentPsf2022 > avgRentPsf2021 ?
-                    (
-                    <div>
-                      <Grid container direction="row" justifyContent="center" alignItems="center">
-                        <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
-                        <Grid item><Typography style={{color: "green"}}>{percentageChange === "N.A." ? (`${percentageChange}`):(`${percentageChange}%`)}</Typography></Grid>
-                      </Grid>
-                    </div>
-                    )
+                  )
+                }
+              </Grid>
+              <Grid item xs={2} md={2}>
+                <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                  {medianRentPsf2022.length !== 0 ? 
+                    (`$${avgRentPsf2022}`)
                     :
+                    ("No data available")
+                  }
+                </div>
+              </Grid>
+              <Grid item xs={2} md={2}>
+                <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                  {medianRentPsf2021.length !== 0 ? 
+                    (`$${avgRentPsf2021}`)
+                    :
+                    ("No data available")
+                  }
+                </div>
+              </Grid>
+              <Grid item xs={2} md={2}>
+                <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                  {medianRentPsf2020.length !== 0 ? 
+                  (`$${avgRentPsf2020}`)
+                  :
+                  ("No data available")
+                  }
+                </div>
+              </Grid>
+            </Grid>
+            <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
+              <RentalTable name={getProject[0]} data={rentalTxn2022}/>
+            </Grid>
+            <Grid container direction="row" justifyContent="center" alignItems="flex-end">
+              {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
+            </Grid>
+          </Box>
+        </CardContent>
+      </Card>
+    )
+    :
+    (
+      <Card sx={{ minWidth: 275 }} variant="outlined" style={{marginBottom: "1em", textAlign:"center"}}> 
+        <CardContent>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
+              <Grid item xs={2} md={2}>
+                <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
+                  <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+                    {getProject}
+                  </Typography>
+                </Link>
+              </Grid>
+              <Grid item xs={2} md={2}>
+                {
+                  saleChange === "N.A."?
+                  ("-")
+                  :
+                  (
+                        avgSalePsf2022 > avgSalePsf2021 ?
+                        (
+                        <div>
+                          <Grid container direction="row" justifyContent="center" alignItems="center">
+                            <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
+                            <Grid item><Typography style={{color: "green"}}>${saleChange}</Typography></Grid>
+                          </Grid>
+                        </div>
+                        )
+                        :
+                        (
+                        <div>
+                          <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
+                          <Typography style={{color: "red"}}>{salePercentageChange}%</Typography>
+                        </div>
+                        )
+                  )
+                } 
+              </Grid>
+              <Grid item xs={2} md={2}>
+                {
+                  salePercentageChange === "N.A."?
+                  ("-")
+                  :
                     (
-                    <div>
-                      <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
-                      <Typography style={{color: "red"}}>{percentageChange}%</Typography>
-                    </div>
-                    )
-                )
-              }
-            </Grid>
-            <Grid item xs={2} md={2}>
-              <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianRentPsf2022.length !== 0 ? 
-                  (`$${avgRentPsf2022}`)
+                      avgSalePsf2022 > avgSalePsf2021 ?
+                      (
+                      <div>
+                        <Grid container direction="row" justifyContent="center" alignItems="center">
+                          <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
+                          <Grid item><Typography style={{color: "green"}}>{salePercentageChange}%</Typography></Grid>
+                        </Grid>
+                      </div>
+                      )
+                      :
+                      (
+                      <div>
+                        <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
+                        <Typography style={{color: "red"}}>{salePercentageChange}%</Typography>
+                      </div>
+                      )
+                  )
+                }
+              </Grid>
+              <Grid item xs={2} md={2}>
+                <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                  {saleData2022ByPsf ? 
+                    (`$${avgSalePsf2022Formatted}`)
+                    :
+                    ("No data available")
+                  }
+                </div>
+              </Grid>
+              <Grid item xs={2} md={2}>
+                <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                  {saleData2021ByPsf ? 
+                    (`$${avgSalePsf2021Formatted}`)
+                    :
+                    ("No data available")
+                  }
+                </div>
+              </Grid>
+              <Grid item xs={2} md={2}>
+                <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
+                  {saleData2020ByPsf ? 
+                  (`$${avgSalePsf2020Formatted}`)
                   :
                   ("No data available")
-                }
-              </div>
+                  }
+                </div>
+              </Grid>
             </Grid>
-            <Grid item xs={2} md={2}>
-              <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianRentPsf2021.length !== 0 ? 
-                  (`$${avgRentPsf2021}`)
-                  :
-                  ("No data available")
-                }
-              </div>
+            <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
+              <RentalTable name={getProject[0]} data={rentalTxn2022}/>
             </Grid>
-            <Grid item xs={2} md={2}>
-              <div style={{backgroundColor: "lightgrey", borderRadius: "5px"}}>
-                {medianRentPsf2020.length !== 0 ? 
-                (`$${avgRentPsf2020}`)
-                :
-                ("No data available")
-                }
-              </div>
+            <Grid container direction="row" justifyContent="center" alignItems="flex-end">
+              {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
             </Grid>
-          </Grid>
-          <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
-            <RentalTable name={getProject[0]} data={rentalTxn2022}/>
-          </Grid>
-          <Grid container direction="row" justifyContent="center" alignItems="flex-end">
-            {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
-          </Grid>
-        </Box>
-      </CardContent>
-    </Card>
+          </Box>
+        </CardContent>
+      </Card>
+    )
+    }
+    </div>
   );
 }
 

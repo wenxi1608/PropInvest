@@ -62,11 +62,6 @@ function App() {
   const districtNo = new Set(allDistricts);
   const sortedDistricts = Array.from(districtNo).sort((a, b) => a - b);
 
-  console.log("Projects:", projects);
-  console.log("All Districts:", allDistricts);
-  console.log("District No:", districtNo);
-  console.log("Sorted Districts:", sortedDistricts);
-
   if (loading) {
     return (
       <div style={{ textAlign: "center", margin: "1em" }}>

@@ -5,19 +5,6 @@ import { CircularProgress } from "@mui/material";
 
 const RentalData = (props) => {
 
-  const [allDistrictData, setAllDistrictData] = useState({})
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchProjects = async() => {
-      const response = await apis.getProjectsByDistrict(props.details[0].rentalMedian[0].district);
-      setAllDistrictData(response);
-      setLoading(false)
-    }
-
-    fetchProjects()
-  }, [])
-
   // 1. Get the past year's rental data for the selected project (i.e. all 4 quarters of 2021)
   let sumPsf = 0
   const medianPsf = props.details[0].rentalMedian
