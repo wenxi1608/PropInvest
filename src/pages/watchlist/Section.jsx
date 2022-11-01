@@ -43,7 +43,10 @@ const Section = (props) => {
             <Grid item xs={2} md={2}>
               Project
             </Grid>
-            <Grid item xs={3} md={3}>
+            <Grid item xs={2} md={2}>
+              Change in Past Year
+            </Grid>
+            <Grid item xs={2} md={2}>
               % Change in Past Year
             </Grid>
             <Grid item xs={2} md={2}>
@@ -54,8 +57,6 @@ const Section = (props) => {
             </Grid>
             <Grid item xs={2} md={2}>
               2020
-            </Grid>
-            <Grid item xs={1} md={1}>
             </Grid>
           </Grid>
         </Box>

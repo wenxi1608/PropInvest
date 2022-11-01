@@ -13,6 +13,9 @@ import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Watchlist from "./pages/watchlist/Watchlist";
+import Calculator from "./pages/calculator/Calculator";
+import CalculatorProjects from "./pages/calculator/ListOfProjects";
+import CreationForm from "./pages/calculator/CreationForm";
 import jwt_decode from "jwt-decode";
 
 // Components
@@ -65,6 +68,18 @@ function App() {
           }
         />
         <Route path="/watchlist" element={<Auth component={Watchlist} />} />
+        <Route
+          path="/calculator" // Display list of projects
+          element={<Auth component={CalculatorProjects} />}
+        />
+        <Route
+          path="/calculator/:projectName" // View and edit calculator for specified project
+          element={<Auth component={Calculator} />}
+        />
+        <Route
+          path="/calculator/create/:projectName" // Form to create new calculator for project
+          element={<Auth component={CreationForm} />}
+        />
       </Routes>
       <ToastContainer
         position="top-center"

@@ -96,7 +96,17 @@ const WatchlistCard = (props) => {
   const avgRentPsf2020 = (sumPsfRent2020 / medianRentPsf2020?.length).toFixed(2)
   const avgRentPsf2021 = (sumPsfRent2021 / medianRentPsf2021?.length).toFixed(2)
   const avgRentPsf2022 = (sumPsfRent2022 / medianRentPsf2022?.length).toFixed(2)
-  const percentageChange = (((avgRentPsf2022 - avgRentPsf2021)/avgRentPsf2021)*100).toFixed(2)
+
+  // Get the YoY change
+  let change = "";
+  let percentageChange = "";
+  if(sumPsfRent2022 === 0 || sumPsfRent2021 === 0 ) {
+    change = "N.A.";
+    percentageChange = "N.A.";
+  } else {
+    change = (avgRentPsf2022 - avgRentPsf2021).toFixed(2)
+    percentageChange = ((change/avgRentPsf2021)*100).toFixed(2)
+  }
  
   // SALE DATA
   const allSaleData = saleData[0]?.transaction;
@@ -124,7 +134,6 @@ const WatchlistCard = (props) => {
   const psfSale2021 = (saleData2021ByPsf?.reduce((a, b) => a + b, 0) / saleData2021ByPsf?.length).toFixed(2);
   const psfSale2022 = (saleData2022ByPsf?.reduce((a, b) => a + b, 0) / saleData2022ByPsf?.length).toFixed(2);
 
-  console.log("Type:", props.dataType)
   if(loading) {
     return (
       <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress /></div>
@@ -144,16 +153,43 @@ const WatchlistCard = (props) => {
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={3} md={3}>
+            <Grid item xs={2} md={2}>
               {
-                medianRentPsf2022.length !== 0 || medianRentPsf2021.length !== 0 ?
+                change === "N.A."?
+                ("-")
+                :
+                (
+                      avgRentPsf2022 > avgRentPsf2021 ?
+                      (
+                      <div>
+                        <Grid container direction="row" justifyContent="center" alignItems="center">
+                          <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
+                          <Grid item><Typography style={{color: "green"}}>{change}</Typography></Grid>
+                        </Grid>
+                      </div>
+                      )
+                      :
+                      (
+                      <div>
+                        <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
+                        <Typography style={{color: "red"}}>{percentageChange}%</Typography>
+                      </div>
+                      )
+                )
+              } 
+            </Grid>
+            <Grid item xs={2} md={2}>
+              {
+                percentageChange === "N.A."?
+                ("-")
+                :
                   (
                     avgRentPsf2022 > avgRentPsf2021 ?
                     (
                     <div>
                       <Grid container direction="row" justifyContent="center" alignItems="center">
                         <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
-                        <Grid item><Typography style={{color: "green"}}>{percentageChange}%</Typography></Grid>
+                        <Grid item><Typography style={{color: "green"}}>{percentageChange === "N.A." ? (`${percentageChange}`):(`${percentageChange}%`)}</Typography></Grid>
                       </Grid>
                     </div>
                     )
@@ -165,8 +201,6 @@ const WatchlistCard = (props) => {
                     </div>
                     )
                 )
-                :
-                ("-")
               }
             </Grid>
             <Grid item xs={2} md={2}>
@@ -196,12 +230,12 @@ const WatchlistCard = (props) => {
                 }
               </div>
             </Grid>
-            <Grid item xs={1} md={1}>
-              {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
-            </Grid>
           </Grid>
           <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
             <RentalTable name={getProject[0]} data={rentalTxn2022}/>
+          </Grid>
+          <Grid container direction="row" justifyContent="center" alignItems="flex-end">
+            {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
           </Grid>
         </Box>
       </CardContent>

@@ -122,82 +122,10 @@ const Navbar = (props) => {
         </Toolbar>
       </AppBar>
     </Box>
-
-    // <Box sx={{ flexGrow: 1 }}>
-    //   <AppBar position="static">
-    //     <Toolbar>
-    //       <IconButton
-    //         size="large"
-    //         edge="start"
-    //         color="inherit"
-    //         aria-label="menu"
-    //         sx={{ mr: 2 }}
-    //         href="/"
-    //       >
-    //         <MapsHomeWorkRoundedIcon />
-    //       </IconButton>
-    //       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-    //         PropInvest
-    //       </Typography>
-    //       {
-    //         !props.tokenState? (
-    //           <div>
-    //             <Button color="inherit" href="/login">Login</Button>
-    //             <Button variant="contained" href="/register">Sign Up</Button>
-    //           </div>
-    //         ) : (
-    //           <div>
-    //             <IconButton
-    //             size="large"
-    //             aria-label="account of current user"
-    //             aria-controls="menu-appbar"
-    //             aria-haspopup="true"
-    //             onClick={handleMenu}
-    //             color="inherit"
-    //           >
-    //             <AccountCircle />
-    //           </IconButton>
-    //           <Menu
-    //             id="menu-appbar"
-    //             anchorEl={anchorEl}
-    //             anchorOrigin={{
-    //               vertical: 'top',
-    //               horizontal: 'right',
-    //             }}
-    //             keepMounted
-    //             transformOrigin={{
-    //               vertical: 'top',
-    //               horizontal: 'right',
-    //             }}
-    //             open={Boolean(anchorEl)}
-    //             onClose={handleClose}
-    //           >
-    //             <MenuItem onClick={handleClose}>Dashboard</MenuItem>
-    //             <MenuItem onClick={handleClose}>Profile</MenuItem>
-    //           </Menu>
-    //           </div>
-    //         )
-    //       }
-    //     </Toolbar>
-    //   </AppBar>
-    // </Box>
   )
 }
 
 export default Navbar;
-
-
-
-{/* <MenuItem>
-                  <Link to={"/profile"} style={{ color: "inherit", textDecoration: "inherit" }}>Profile</Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to={"/dashboard"} style={{ color: "inherit", textDecoration: "inherit" }}>Dashboard</Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to={"/logout"} style={{ color: "inherit", textDecoration: "inherit" }}>Logout</Link>
-                </MenuItem>
-              </Menu> */}
 
 
 

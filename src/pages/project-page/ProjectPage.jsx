@@ -2,6 +2,7 @@
  import React, {useEffect, useState} from "react"
  import apisProjects from "../../apis/projects";
  import apisWatchlist from "../../apis/watchlist";
+ import apisCalculator from "../../apis/calculator";
  import { CircularProgress } from "@mui/material";
  import Overview from "./Overview"
  import WatchlistButton from "./WatchlistButton";
@@ -18,38 +19,46 @@ const ProjectPage = () => {
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
-  const [projectDetails, setProjectDetails] = useState({})
-  const [rentalData, setRentalData] = useState({})
-  const [salesData, setSalesData] = useState({})
-  const [loading, setLoading] = useState(true)
-  const [watched, setWatched] = useState(false)
+  const [projectDetails, setProjectDetails] = useState({});
+  const [rentalData, setRentalData] = useState({});
+  const [salesData, setSalesData] = useState({});
+  const [inWatchlist, setInWatchlist] = useState(false);
+  // const [inCalculator, setInCalculator] = useState(false);
+  const [calculator, setCalculator] = useState(false);
   const [watchlistStatus, setWatchlistStatus] = useState("");
+  // const [calculatorStatus, setCalculatorStatus] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async() => {
       const response = await apisProjects.getProjectDetails(projectName);
       const rentalDataResponse = await apisProjects.getRentalPsfByProject(projectName);
       const salesDataResponse = await apisProjects.getSalesTxnByProject(projectName);
-      // To check if project already exists in watchlist, if yes, disable add button
-      const watchlistStatusResponse = await apisWatchlist.getProjectsWatchedByUser(token)
+
+      // To check if project already exists in user's watchlist/calculator
+      const watchlistStatusResponse = await apisWatchlist.getProjectsWatchedByUser(token);
+      // const calculatorStatusResponse = await apisCalculator.getProjectsCalculatedByUser(token);
+
       setProjectDetails(response);
       setRentalData(rentalDataResponse);
       setSalesData(salesDataResponse);
-      setWatchlistStatus(watchlistStatusResponse.data)
+      setWatchlistStatus(watchlistStatusResponse.data);
+      // setCalculatorStatus(calculatorStatusResponse);
       setLoading(false);
     }
 
     fetchProjects()
   }, [])
- 
-  const handleSubmit = async(e) => {
+
+  // HANDLE ADD TO CALCULATOR
+  const handleAddToWatchlist = async(e) => {
     
     try {
       const response = await apisWatchlist.addToWatchlist(projectName, token)
       if(response.data.error) {
         toast.error(response.data.error)
       } else {
-        setWatched(true)
+        setInWatchlist(true)
         toast.success(`${projectName} ADDED TO WATCHLIST`);
       }
     } catch (err) {
@@ -69,11 +78,13 @@ const ProjectPage = () => {
       <Overview name={projectName} details={projectDetails} /> 
       
       <div className="watchlist-button">
-        <WatchlistButton tokenExists={tokenExists} watchlistStatus={watchlistStatus} handleSubmit={handleSubmit} projectName={projectName} watched={watched}/>
+        <WatchlistButton tokenExists={tokenExists} watchlistStatus={watchlistStatus} handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
       </div>
 
       <div className="calculator-button">
-        <CalculatorButton />
+        <CalculatorButton tokenExists={tokenExists} projectName={projectName}
+        //  calculatorStatus={calculatorStatus}
+         />
       </div>
 
       <div className="sale-data">

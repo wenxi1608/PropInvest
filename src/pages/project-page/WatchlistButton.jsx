@@ -13,10 +13,6 @@ import { toast } from "react-toastify";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 const WatchlistButton = (props) => {
-
-  // const inWatchlist = props.watchlistStatus?.find(p => {
-  //     return p === props.projectName
-  //   })
   
   const [open, setOpen] = useState(false);
   
@@ -72,7 +68,7 @@ const WatchlistButton = (props) => {
         )
         :
         (
-          <Button variant="contained" onClick={() => props.handleSubmit()}>
+          <Button variant="contained" onClick={() => props.handleAddToWatchlist()}>
             <AddRoundedIcon />
             Add to Watchlist
           </Button>
