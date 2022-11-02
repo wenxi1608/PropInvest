@@ -1,10 +1,8 @@
-import React, { Fragment } from "react";
+import React, {useState, useEffect} from "react";
 
 const Dashboard = () => {
   return (
-    <Fragment>
-      <h1>Dashboard</h1>
-    </Fragment>
+    <h1>Dashboard</h1>
   )
 }
 

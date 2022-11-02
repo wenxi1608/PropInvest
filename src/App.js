@@ -16,7 +16,6 @@ import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Watchlist from "./pages/watchlist/Watchlist";
 import Calculator from "./pages/calculator/Calculator";
-import CalculatorProjects from "./pages/calculator/ListOfProjects";
 import CreationForm from "./pages/calculator/CreationForm";
 import jwt_decode from "jwt-decode";
 
@@ -30,6 +29,7 @@ function App() {
   const [user, setUser] = useState();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchProject, setSearchProject] = useState(false);
 
   const token = localStorage.getItem("user_token");
   const tokenToSend = "Bearer " + token;
@@ -76,6 +76,8 @@ function App() {
         tokenState={tokenState}
         user={user}
         setTokenState={setTokenState}
+        projects={projects}
+        setSearchProject={setSearchProject}
       />
       <Routes>
         <Route path="/" element={<Index />} />
@@ -97,7 +99,10 @@ function App() {
             />
           }
         />
-        <Route path="/projects/:projectName" element={<ProjectPage />} />
+        <Route
+          path="/projects/:projectName"
+          element={<ProjectPage searchProject={searchProject} />}
+        />
         <Route path="/register" element={<Guest component={Register} />} />
         <Route
           path="/login"
@@ -111,8 +116,8 @@ function App() {
         />
         <Route path="/watchlist" element={<Auth component={Watchlist} />} />
         <Route
-          path="/calculator" // Display list of projects
-          element={<Auth component={CalculatorProjects} />}
+          path="/dashboard" // Display list of projects
+          element={<Auth component={Dashboard} />}
         />
         <Route
           path="/calculator/:projectName" // View and edit calculator for specified project

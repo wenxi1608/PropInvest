@@ -23,10 +23,8 @@ const ProjectPage = () => {
   const [rentalData, setRentalData] = useState({});
   const [salesData, setSalesData] = useState({});
   const [inWatchlist, setInWatchlist] = useState(false);
-  // const [inCalculator, setInCalculator] = useState(false);
   const [calculator, setCalculator] = useState(false);
   const [watchlistStatus, setWatchlistStatus] = useState("");
-  // const [calculatorStatus, setCalculatorStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,8 +35,7 @@ const ProjectPage = () => {
 
       // To check if project already exists in user's watchlist/calculator
       const watchlistStatusResponse = await apisWatchlist.getProjectsWatchedByUser(token);
-      // const calculatorStatusResponse = await apisCalculator.getProjectsCalculatedByUser(token);
-
+  
       setProjectDetails(response);
       setRentalData(rentalDataResponse);
       setSalesData(salesDataResponse);
@@ -75,7 +72,10 @@ const ProjectPage = () => {
 
   return (
     <div>
-      <Overview name={projectName} details={projectDetails} /> 
+      
+      <h1>{projectName}</h1>
+      <h5>{projectDetails[0].street}</h5> 
+      <h5>District {projectDetails[0].rental[0].district}</h5>
       
       <div className="watchlist-button">
         <WatchlistButton tokenExists={tokenExists} watchlistStatus={watchlistStatus} handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
