@@ -48,17 +48,16 @@ const loanTenure = [{value: 5, label: "5"}, {value: 10, label: "10"}, {value: 20
 const loanAmount = [{value: 35, label: "35"}, {value: 40, label: "40"}, {value: 50, label: "50"}, {value: 60, label: "60"}, {value: 75, label: "75"} ]
 
 function valuetext(value) {
-  return `${value}°C`;
+  return `${value}`;
 }
 
-function interestRateValue(value) {
-  return interestRate.findIndex((mark) => mark.value === value) + 1;
-}
+// function interestRateValue(value) {
+//   return interestRate.findIndex((mark) => mark.value === value) + 1;
+// }
 
-function loanTenureValue(value) {
-  return loanTenure.findIndex((mark) => mark.value === value) + 1;
-}
-
+// function loanTenureValue(value) {
+//   return loanTenure.findIndex((mark) => mark.value === value) + 1;
+// }
 
 const CreationForm = () => {
 
