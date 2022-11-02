@@ -11,14 +11,21 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Section from "./Section";
 import DeleteButton from "./DeleteButton";
+import { toast } from "react-toastify";
 
 const Watchlist = () => {
 
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
+  // Edit button to show delete component
+  const [edit, setEdit] = useState(false);
+  const handleEdit = (event) => {
+    setEdit(current => !current)
+  }
+
   // Allow user to toggle between either rent or sale data to display
-  const [dataType, setDataType] = useState("rent");
+  const [dataType, setDataType] = useState("Rent");
   const handleClickOnRent = async() => {
     setDataType("Rent");
   };
@@ -26,11 +33,26 @@ const Watchlist = () => {
     setDataType("Sale");
   };
 
-  // Edit button to show delete component
-  const [edit, setEdit] = useState(false);
-  const handleEdit = (event) => {
-    setEdit(current => !current)
-  }
+  // Delete project from watchlist when user clicks on delete button
+  // const [projectToDelete, setProjectToDelete] = useState(false);
+  // useEffect(() => {
+  //   console.log(projectToDelete)
+  // }, [projectToDelete])
+  // const handleDelete = async(p) => {
+    
+  //   try {
+  //     const response = await apis.deleteFromWatchlist(p, token)
+  //     if(response.data.error) {
+  //       toast.error(response.data.error);
+  //     } else {
+  //       setProjectToDelete(true);
+  //       toast.success(`${p} REMOVED FROM WATCHLIST`);
+  //     }
+  //   } catch (err) {
+  //     toast.error("Unable to remove from watchlist")
+  //     console.log(err)
+  //   }
+  // }
 
   return(
     <div>
@@ -53,7 +75,8 @@ const Watchlist = () => {
           <Chip label="Sale Psf" variant="outlined" color="primary" onClick={handleClickOnSale} />
         </Stack>
       </Container>
-      <Section token={token} edit={edit} dataType={dataType}/>
+      <Section token={token} edit={edit} dataType={dataType} />
+      {/* <Section token={token} edit={edit} dataType={dataType} handleDelete={handleDelete} setProjectToDelete={setProjectToDelete} projectToDelete={projectToDelete} /> */}
       </div>
       )
       :

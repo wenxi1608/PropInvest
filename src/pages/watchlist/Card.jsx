@@ -31,7 +31,7 @@ const WatchlistCard = (props) => {
   const [rentalData, setRentalData] = useState({});
   const [saleData, setSaleData] = useState({});
 
-  const getProject = [props.results];
+  const getProject = [props.name];
   const projectUrl = getProject.toString().replaceAll(" ", "-");
   
   useEffect(() => {
@@ -46,22 +46,6 @@ const WatchlistCard = (props) => {
     }
     fetchProjects()
   }, [])
-
-  // Remove project from watchlist when user clicks on delete button
-  const handleDelete = async() => {
-    
-    try {
-      const response = await watchlistApis.deleteFromWatchlist(getProject, props.token)
-      if(response.data.error) {
-        toast.error(response.data.error)
-      } else {
-        toast.success(`${getProject} REMOVED FROM WATCHLIST`);
-      }
-    } catch (err) {
-      toast.error("Unable to remove from watchlist")
-      console.log(err)
-    }
-  }
   
   // RENTAL DATA
   const allRentalPsf = rentalData[0]?.rentalMedian
@@ -251,7 +235,7 @@ const WatchlistCard = (props) => {
               <RentalTable name={getProject[0]} data={rentalTxn2022}/>
             </Grid>
             <Grid container direction="row" justifyContent="center" alignItems="flex-end">
-              {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
+              {props.edit === true && <DeleteButton name={getProject[0]} handleDelete={props.handleDelete} projectToDelete={props.projectToDelete} setProjectToDelete={props.setProjectToDelete}/>}
             </Grid>
           </Box>
         </CardContent>
@@ -352,7 +336,7 @@ const WatchlistCard = (props) => {
               <RentalTable name={getProject[0]} data={rentalTxn2022}/>
             </Grid>
             <Grid container direction="row" justifyContent="center" alignItems="flex-end">
-              {props.edit === true && <DeleteButton deleteFunction={handleDelete}/>}
+              {props.edit === true && <DeleteButton handleDelete={props.handleDelete}/>}
             </Grid>
           </Box>
         </CardContent>

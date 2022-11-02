@@ -6,7 +6,7 @@ import apis from "../../apis/watchlist";
 const DeleteButton = (props) => {
 
   return(
-    <Button variant="contained" color="error" startIcon={<DeleteIcon/>} onClick={() => props.deleteFunction()}>
+    <Button variant="contained" color="error" startIcon={<DeleteIcon/>} onClick={() => props.handleDelete(props.name)}>
       Delete
     </Button>
   )

@@ -7,10 +7,12 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import DeleteButton from "./DeleteButton";
+import { toast } from "react-toastify";
 
 const Section = (props) => {
 
   const [watchedProjects, setWatchedProjects] = useState();
+  // const [deleted, setDeleted] = useState();
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -21,16 +23,35 @@ const Section = (props) => {
     }
 
     fetchProjects()
-  }, []);
+  }, [watchedProjects]);
 
-  const allProjectsInWatchlist = watchedProjects?.map(p => <WatchlistCard key={p} results={p} token={props.token} edit={props.edit} dataType={props.dataType}/>);
+  // Delete project from watchlist when user clicks on delete button
+  const handleDelete = async(projectName) => {
+    
+    try {
+      const response = await apis.deleteFromWatchlist(projectName, props.token)
+      if(response.data.error) {
+        toast.error(response.data.error);
+      } else {
+        setWatchedProjects(watchedProjects.filter((p) => {
+          return p !== projectName
+        }))
+        toast.success(`${projectName} REMOVED FROM WATCHLIST`);
+      }
+    } catch (err) {
+      toast.error("Unable to remove from watchlist")
+      console.log(err)
+    }
+  }
+
+  const allProjectsInWatchlist = watchedProjects?.map(p => <WatchlistCard key={p} name={p} token={props.token} edit={props.edit} dataType={props.dataType} handleDelete={handleDelete} />);
   
   if(loading) {
     return (
       <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress /></div>
     )
   }
-
+  
   return(
     <div>
       <Container>
