@@ -13,6 +13,7 @@ import { Container, CircularProgress, Button } from "@mui/material";
 import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import RentalTable from './RentalTable';
+import SaleTable from './SaleTable';
 import DeleteButton from "./DeleteButton";
 import { toast } from "react-toastify";
 
@@ -28,6 +29,7 @@ const WatchlistCard = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [rentalTxn2022, setRentalTxn2022] = useState({});
+  const [saleTxn2022, setSaleTxn2022] = useState({});
   const [rentalData, setRentalData] = useState({});
   const [saleData, setSaleData] = useState({});
 
@@ -39,9 +41,11 @@ const WatchlistCard = (props) => {
       const rentalDataResponse = await projectApis.getRentalPsfByProject(getProject[0]);
       const saleDataResponse = await projectApis.getSalesTxnByProject(getProject[0]);
       const rentalTxnFor2022 = await projectApis.get2022RentalTxnByProject(getProject[0]);
+      const saleTxnFor2022 = await projectApis.getSalesTxnByProject(getProject[0]);
       setRentalData(rentalDataResponse);
       setSaleData(saleDataResponse);
       setRentalTxn2022(rentalTxnFor2022);
+      setSaleTxn2022(saleTxnFor2022);
       setLoading(false);
     }
     fetchProjects()
@@ -333,7 +337,7 @@ const WatchlistCard = (props) => {
               </Grid>
             </Grid>
             <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
-              <RentalTable name={getProject[0]} data={rentalTxn2022}/>
+              <SaleTable name={getProject[0]} data={saleTxn2022}/>
             </Grid>
             <Grid container direction="row" justifyContent="center" alignItems="flex-end">
               {props.edit === true && <DeleteButton handleDelete={props.handleDelete}/>}
