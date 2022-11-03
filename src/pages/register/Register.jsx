@@ -48,7 +48,7 @@ const Register = () => {
       const response = await apis.register(registrationData, "register");
       localStorage.setItem("user_token", response.data.token);
       toast.success("Account Created");
-      navigate("/watchlist");
+      navigate("/dashboard");
 
     } catch (err) {
       const errMsg = err.response.data.error
