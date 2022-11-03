@@ -57,6 +57,11 @@ const ProjectDetails = (props) => {
     <Grid container direction="row" justifyContent="center" alignItems="center" margin="2em">
       <Grid item xs={12} md={6}>
         <Card sx={{ maxWidth: 500 }}>
+          {props.page === "index"?
+          (data.projectName)
+          :
+          ("")
+          }
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableBody>

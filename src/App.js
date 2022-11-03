@@ -17,6 +17,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Watchlist from "./pages/watchlist/Watchlist";
 import Calculator from "./pages/calculator/Calculator";
 import CreationForm from "./pages/calculator/CreationForm";
+import CalculatorIndex from "./pages/calculator/Index";
 import jwt_decode from "jwt-decode";
 
 // Components
@@ -116,6 +117,10 @@ function App() {
         <Route
           path="/dashboard" // Display list of projects
           element={<Auth component={Dashboard} />}
+        />
+        <Route
+          path="/calculator" // Display list of projects
+          element={<Auth component={CalculatorIndex} />}
         />
         <Route
           path="/calculator/:projectName" // View and edit calculator for specified project

@@ -49,7 +49,7 @@ const Calculator = () => {
     <div>
       <h6>CASHFLOW CALCULATOR</h6>
       <h1>{projectName}</h1>
-      <ProjectDetails calculatorData={calculatorData[0]} setBsd={setBsd} setAbsd={setAbsd} setDownpayment={setDownpayment}/>
+      <ProjectDetails page={"calculator"} calculatorData={calculatorData[0]} setBsd={setBsd} setAbsd={setAbsd} setDownpayment={setDownpayment}/>
       <Cashflow bsd={bsd} absd={absd} downpayment={downpayment} itemList={itemList}/>
       <IncomeExpenseForm projectName={projectName} token={token} setItemList={setItemList} itemList={itemList}/>
     </div>
