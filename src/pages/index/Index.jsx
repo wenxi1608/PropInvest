@@ -15,7 +15,7 @@ const Index = () => {
       <Grid container>
         <Grid item xs={12} md={7}>
           <div className="content-wrapper">
-            <h1>Track your property buysssss</h1>
+            <h1>Track property transactions</h1>
             <p>The one stop platform for property investors to analyse sale prices and rental rates across Singapore</p>
             <Button variant="contained" href="/register">Sign Up</Button>
           </div>

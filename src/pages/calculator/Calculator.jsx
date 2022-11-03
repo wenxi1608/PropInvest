@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import apis from "../../apis/calculator"
 import { CircularProgress } from "@mui/material";
+import IncomeExpenseForm from "./IncomeExpenseForm";
 
 const Calculator = () => {
 
@@ -25,7 +26,6 @@ const Calculator = () => {
     fetchProjects();
   }, []);
 
-  console.log(calculatorProjects)
   const calculatorData = calculatorProjects?.filter((p) => {
     return p.projectName == "TURQUOISE"
   })
@@ -40,6 +40,7 @@ const Calculator = () => {
     <div>
       <h1>{projectName}</h1>
       <ProjectDetails calculatorData={calculatorData[0]}/>
+      <IncomeExpenseForm projectName={projectName} token={token}/>
     </div>
   )
 }

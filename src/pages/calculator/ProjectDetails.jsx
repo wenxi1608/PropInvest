@@ -68,10 +68,6 @@ const ProjectDetails = (props) => {
                 <TableCell>{data.interestRate}%</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Est. Monthly Mortgage</TableCell>
-                <TableCell>{props.calculatorData.interestRate}%</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell>Buyer's Stamp Duty</TableCell>
                 <TableCell>${buyersStampDuty}</TableCell>
               </TableRow>

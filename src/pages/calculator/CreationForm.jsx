@@ -84,7 +84,7 @@ const CreationForm = () => {
     try {
       const response = await apis.createCalculator(calculatorData, token);
       toast.success(`CALCULATOR CREATED FOR ${projectName}`)
-      navigate(`/dashboard`);
+      navigate(`/calculator/${projectName}`);
     } catch(err) {
       toast.error(err.response.data.error)
       return

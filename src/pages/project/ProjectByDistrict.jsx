@@ -4,6 +4,7 @@ import apis from "../../apis/projects"
 import { useParams } from "react-router-dom"
 import { CircularProgress } from "@mui/material";
 import Filter from "./Filter";
+import SearchBar from "../../components/navbar/SearchBar";
 
 const ProjectByDistrict = (props) => {
   const params = useParams();
@@ -22,6 +23,7 @@ const ProjectByDistrict = (props) => {
   return (
     <>
       <h1>District {params.districtNo}</h1>
+      <SearchBar />
       <Filter districts={props.sortedDistricts} handleChange={handleChange} districtFilter={districtFilter}/>
       <Section 
       results={projectsByDistrict?.map((p) => {return p.project})} 

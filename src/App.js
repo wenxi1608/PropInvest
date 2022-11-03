@@ -76,8 +76,6 @@ function App() {
         tokenState={tokenState}
         user={user}
         setTokenState={setTokenState}
-        projects={projects}
-        setSearchProject={setSearchProject}
       />
       <Routes>
         <Route path="/" element={<Index />} />

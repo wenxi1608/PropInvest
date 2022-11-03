@@ -5,6 +5,7 @@ import Section from "./Section";
 import Filter from "./Filter"
 import ReactPaginate from "react-paginate"
 import styles from "./Projects.scss"
+import SearchBar from "../../components/navbar/SearchBar";
 
 const AllProjects = (props) => {
 
@@ -17,6 +18,8 @@ const AllProjects = (props) => {
   return(
     <div>
       <h1>All Projects</h1>
+
+      <SearchBar projects={props.projects}/>
       <Filter districts={props.sortedDistricts} 
       handleChange={handleChange} districtFilter={districtFilter}
       />
