@@ -52,7 +52,9 @@ const IncomeExpenseTable = (props) => {
         type: response.data.type, 
         details: response.data.details, 
         amount: response.data.amount, 
-        category: response.data.category}
+        category: response.data.category,
+        id: response.data.id,
+        }
         :
         item
       }))

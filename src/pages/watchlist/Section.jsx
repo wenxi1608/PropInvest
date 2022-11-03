@@ -24,6 +24,7 @@ const Section = (props) => {
 
     fetchProjects()
   }, [watchedProjects]);
+  console.log(watchedProjects)
 
   // Delete project from watchlist when user clicks on delete button
   const handleDelete = async(projectName) => {
