@@ -15,8 +15,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import { FormLabel, Select, MenuItem } from '@mui/material';
+import { FormLabel, Select, MenuItem, IconButton } from '@mui/material';
 import apis from "../../apis/calculator"
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 const IncomeExpenseTable = (props) => {
 
@@ -37,7 +38,6 @@ const IncomeExpenseTable = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(editItems)
 
   const handleSubmit = async (e, item) => {
     e.preventDefault();
@@ -54,60 +54,57 @@ const IncomeExpenseTable = (props) => {
         :
         item
       }))
-      console.log(response)
-      // navigate(`/calculator/${projectName}`);
+    
     } catch(err) {
       console.log(err.response.data.error)
       return
     }
   };
 
+  const handleDelete = async(itemToDelete) => {
+    
+    try {
+      const response = await apis.deleteItem(itemToDelete, props.token)
+      console.log("Delete:", response)
+      props.setItemList(props.itemList.filter((item) => {
+        return item.id !== itemToDelete
+        }))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const item = props.item;
-  console.log(item)
+  console.log(item.id)
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Item Type</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Details</TableCell>
-            <TableCell>Amount ($)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-            <TableRow
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {item.date}
-              </TableCell>
-              <TableCell>{item.type}</TableCell>
-              <TableCell>{item.category}</TableCell>
-              <TableCell>{item.details}</TableCell>
-              <TableCell>{item.amount}</TableCell>
-              <TableCell>
-                <Button variant="outlined" startIcon={<EditRoundedIcon/>} onClick={handleClickOpen}>Edit</Button>
-                <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Edit Item</DialogTitle>
-                  <DialogContent>
-                  <Box component="form" 
-                  onSubmit={(e) => {handleSubmit(e, item)}}
-                  sx={{'& > :not(style)': { m: 1, width: '25ch' }, }} noValidate autoComplete="off">
-                    <FormLabel>Date
-                      <TextField 
-                        variant="outlined" 
-                        name="date"
-                        fullWidth
-                        defaultValue={item.date}
-                        type="date"
-                        onChange={handleChange}
-                        />
-                      </FormLabel>
-                      <FormLabel>Type
-                        <Select 
+    <div className='item-list' style={{ color: item.type === "Income" ? 'green' : 'red'}}>
+      <TableRow>
+        <TableCell style={{color:"inherit", width: "100px", textAlign: "left"}}>{item.date}</TableCell>
+        <TableCell style={{color:"inherit", width: "120px", textAlign: "left"}}>{item.type}</TableCell>
+        <TableCell style={{color:"inherit", width: "200px", textAlign: "left"}}>{item.category}</TableCell>
+        <TableCell style={{color:"inherit", width: "200px", textAlign: "left"}}>{item.details}</TableCell>
+        <TableCell style={{color:"inherit", width: "100px", textAlign: "left"}}>{item.amount}</TableCell>
+        <TableCell style={{color:"inherit", width: "5px", textAlign: "left"}}>
+          <IconButton color="primary" onClick={handleClickOpen} size="small"><EditRoundedIcon /></IconButton>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>{item.type}: {item.details}</DialogTitle>
+            <DialogContent>
+            <Box component="form" 
+            onSubmit={(e) => {handleSubmit(e, item)}}
+            sx={{'& > :not(style)': { m: 1, width: '25ch' }, }} noValidate autoComplete="off">
+              <FormLabel>Date
+                <TextField 
+                  variant="outlined" 
+                  name="date"
+                  fullWidth
+                  defaultValue={item.date}
+                  type="date"
+                  onChange={handleChange}
+                  />
+                </FormLabel>
+                <FormLabel>Type
+                  <Select 
                           variant="outlined" 
                           name="type"
                           fullWidth
@@ -168,12 +165,11 @@ const IncomeExpenseTable = (props) => {
                   </DialogActions>
                 </Dialog>
               </TableCell>
-            </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
-
-    
+              <TableCell style={{color:"inherit", width: "5px", textAlign: "left"}}>
+                <IconButton color="primary" onClick={()=>{handleDelete(item.id)}} size="small"><DeleteRoundedIcon /></IconButton>
+              </TableCell>
+      </TableRow> 
+    </div> 
   );
 }
 

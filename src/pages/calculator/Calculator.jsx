@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import apis from "../../apis/calculator"
 import { CircularProgress } from "@mui/material";
 import IncomeExpenseForm from "./IncomeExpenseForm";
+import Cashflow from "./Cashflow";
 
 const Calculator = () => {
 
@@ -16,6 +17,14 @@ const Calculator = () => {
   const [calculatorProjects, setCalculatorProjects] = useState();
   const [loading, setLoading] = useState(true);
 
+  const [cashOutflow, setCashOutflow] = useState(0);
+  const [cashInflow, setCashInflow] = useState(0);
+  const [bsd, setBsd] = useState(0);
+  const [absd, setAbsd] = useState(0);
+  const [downpayment, setDownpayment] = useState(0);
+  const [itemList, setItemList] = useState([]);
+
+
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await apis.getUserCalculators(token);
@@ -27,7 +36,7 @@ const Calculator = () => {
   }, []);
 
   const calculatorData = calculatorProjects?.filter((p) => {
-    return p.projectName == "TURQUOISE"
+    return p.projectName == projectName
   })
 
   if(loading) {
@@ -38,9 +47,11 @@ const Calculator = () => {
 
   return(
     <div>
+      <h6>CASHFLOW CALCULATOR</h6>
       <h1>{projectName}</h1>
-      <ProjectDetails calculatorData={calculatorData[0]}/>
-      <IncomeExpenseForm projectName={projectName} token={token}/>
+      <ProjectDetails calculatorData={calculatorData[0]} setBsd={setBsd} setAbsd={setAbsd} setDownpayment={setDownpayment}/>
+      <Cashflow bsd={bsd} absd={absd} downpayment={downpayment} itemList={itemList}/>
+      <IncomeExpenseForm projectName={projectName} token={token} setItemList={setItemList} itemList={itemList}/>
     </div>
   )
 }

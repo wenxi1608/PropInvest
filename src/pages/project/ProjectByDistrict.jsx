@@ -11,7 +11,6 @@ const ProjectByDistrict = (props) => {
   const projectsByDistrict = props.projects?.filter((p) => {
     return p.rentalMedian[0].district === params.districtNo;
   });
-  console.log("projects by district:", projectsByDistrict)
 
   const [districtFilter, setDistrictFilter] = useState("");
   

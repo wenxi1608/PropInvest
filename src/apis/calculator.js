@@ -63,6 +63,19 @@ const apis = {
     );
     return response;
   },
+
+  deleteItem: async (itemToDelete, token) => {
+    console.log(itemToDelete, token);
+    const response = await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/calculator/delete-income-expense/${itemToDelete}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response;
+  },
 };
 
 export default apis;

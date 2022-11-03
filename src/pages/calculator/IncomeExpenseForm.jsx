@@ -19,7 +19,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import { FormLabel, Select, MenuItem } from '@mui/material';
+import { FormLabel, Select, MenuItem, Grid } from '@mui/material';
 
 const IncomeExpenseForm = (props) => {
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -30,7 +30,7 @@ const IncomeExpenseForm = (props) => {
   const [details, setDetails] = useState("");
   const [category, setCategory] = useState("");
   const [item, setItem] = useState({});
-  const [itemList, setItemList] = useState([]);
+  // const [itemList, setItemList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
@@ -42,28 +42,6 @@ const IncomeExpenseForm = (props) => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  // Update Item
-  const handleUpdateChange = (e) => {
-    setEditItems({
-      ...editItems,
-      [e.target.name]: e.target.value,
-    });
-  };
-  console.log(editItems)
-
-  const handleUpdate = async (e, item) => {
-    e.preventDefault();
-    
-    try {
-      const response = await apis.updateItems(editItems, item, props.token);
-      console.log(response)
-      // navigate(`/calculator/${projectName}`);
-    } catch(err) {
-      console.log(err.response.data.error)
-      return
-    }
   };
 
   // Form to create new income/expense item
@@ -80,7 +58,7 @@ const IncomeExpenseForm = (props) => {
     
     try {
       const response = await apis.addIncomeExpense(item, props.projectName, token);
-      setItemList([...itemList,
+      props.setItemList([...props.itemList,
         item
       ])
     } catch(err) {
@@ -93,16 +71,16 @@ const IncomeExpenseForm = (props) => {
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await apis.getItems(props.projectName, token);
-      setItemList(response.data);
+      props.setItemList(response.data);
       setLoading(false);
     };
 
     fetchProjects();
   }, []);
 
-  console.log(itemList)
+  console.log(props.itemList)
 
-  const allItemsInList = itemList?.map(item => <IncomeExpenseTable key={item} item={item} token={token} itemList={itemList} setItemList={setItemList}/>);
+  const allItemsInList = props.itemList?.map(item => <IncomeExpenseTable key={item.id} item={item} token={token} itemList={props.itemList} setItemList={props.setItemList}/>);
   
 
   if(loading) {
@@ -113,27 +91,46 @@ const IncomeExpenseForm = (props) => {
 
   return(
     <div className="income-expense-form">
-      <label>Type</label>
-      <select name="type" onChange={handleCreateChange}>
-        <option value="Income">Income</option>
-        <option value="Expense">Expense</option>
-      </select>
-      <label>Date</label>
-        <input name="date" type="date" onChange={handleCreateChange}/>
-      <label>Details</label>
-        <input name="details" type="text" onChange={handleCreateChange}/>
-      <label>Amount ($)</label>
-        <input name="amount" type="number"onChange={handleCreateChange}/>
-      <label>Category</label>
-        <select name="category" onChange={handleCreateChange}>
-          <option value="Rent">Rent</option>
-          <option value="Property Tax">Property Tax</option>
-          <option value="Maintenance Fees">Maintenance Fees</option>
-          <option value="Management Fee">Management Fee</option>
-          <option value="Miscellaneous">Miscellaneous</option>
+      <Grid container direction="row" style={{margin: "1em", textAlign: "center", maxWidth: "90%"}}>
+        <label>Type</label>
+        <select name="type" onChange={handleCreateChange}>
+          <option value="Income">Income</option>
+          <option value="Expense">Expense</option>
         </select>
-        <button onClick={handleCreate}>Add Item</button>
-        {allItemsInList}
+        <label>Date</label>
+          <input name="date" type="date" onChange={handleCreateChange}/>
+        <label>Details</label>
+          <input name="details" type="text" onChange={handleCreateChange}/>
+        <label>Amount ($)</label>
+          <input name="amount" type="number"onChange={handleCreateChange}/>
+        <label>Category</label>
+          <select name="category" onChange={handleCreateChange}>
+            <option value="Rent">Rent</option>
+            <option value="Property Tax">Property Tax</option>
+            <option value="Maintenance Fees">Maintenance Fees</option>
+            <option value="Management Fee">Management Fee</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+          </select>
+          <button onClick={handleCreate}>Add Item</button>
+      </Grid>
+      <Grid direction="row" container style={{margin: "1em", textAlign: "center", maxWidth: "90%"}}>
+        <TableContainer direction="row" component={Paper} sx={{ maxHeight: 600 }}>
+        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
+            {/* <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell>Item Type</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Details</TableCell>
+              <TableCell>Amount ($)</TableCell>
+              <TableCell>Edit</TableCell>
+            </TableRow> */}
+     
+          <TableBody>
+            {allItemsInList}
+          </TableBody>
+        </Table>
+        </TableContainer>
+      </Grid>
     </div>
   )
 

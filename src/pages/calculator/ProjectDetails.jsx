@@ -19,8 +19,10 @@ const ProjectDetails = (props) => {
   if(data.residency === "Singaporean" && data.propertiesOwned === 0) {
     if(data.propertyValue > 1000000) {
       buyersStampDuty = ((1800 + 3600 + 19200) + ((data.propertyValue - 1000000)*0.04))
+      props.setAbsd(buyersStampDuty)
     } else {
       buyersStampDuty = ((data.propertyValue * 0.03) - 5400)
+      props.setAbsd(buyersStampDuty)
     }
   }
 
@@ -43,9 +45,16 @@ const ProjectDetails = (props) => {
     addBuyersStampDuty = data.propertyValue * 0.3
   }
 
+  // Calculate downpayment
+  const downpayment = data.propertyValue - ((data.loanAmount/100) * data.propertyValue)
+
+  props.setAbsd(buyersStampDuty)
+  props.setBsd(addBuyersStampDuty)
+  props.setDownpayment(downpayment)
+
   return (
     <div>
-    <Grid container direction="row" justifyContent="center" alignItems="center">
+    <Grid container direction="row" justifyContent="center" alignItems="center" margin="2em">
       <Grid item xs={12} md={6}>
         <Card sx={{ maxWidth: 500 }}>
         <TableContainer component={Paper}>
@@ -78,22 +87,6 @@ const ProjectDetails = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Card sx={{ maxWidth: 500 }}>
-          <Grid container>
-            <Grid item>
-              <Typography variant="h3">Cash Outflow To Date</Typography>
-              <Typography variant="h3">$xxx</Typography>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item>
-              <Typography variant="h3">Cash Inflow To Date</Typography>
-              <Typography variant="h3">$xxx</Typography>
-            </Grid>
-          </Grid>
         </Card>
       </Grid>
     </Grid>

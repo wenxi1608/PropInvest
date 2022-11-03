@@ -96,7 +96,7 @@ const SaleTable = (props) => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Lease Date (MMYY)</TableCell>
+                <TableCell>Date of Sale (MMYY)</TableCell>
                 <TableCell>Area (sqm)</TableCell>
                 <TableCell>Floor Range</TableCell>
                 <TableCell>Type Of Sale</TableCell>
