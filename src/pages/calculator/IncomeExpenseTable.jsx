@@ -23,6 +23,8 @@ const IncomeExpenseTable = (props) => {
 
   const [open, setOpen] = useState(false);
   const [editItems, setEditItems] = useState({})
+  const item = props.item;
+  console.log(item.id)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,11 +41,11 @@ const IncomeExpenseTable = (props) => {
     });
   };
 
-  const handleSubmit = async (e, item) => {
+  const handleUpdate = async (e, itemId) => {
     e.preventDefault();
     
     try {
-      const response = await apis.updateItems(editItems, item, props.token);
+      const response = await apis.updateItems(editItems, itemId, props.token);
       props.setItemList(props.itemList.map((item) => {
         return item.id === response.data.id ?
         {date: response.data.date, 
@@ -74,9 +76,6 @@ const IncomeExpenseTable = (props) => {
     }
   }
 
-  const item = props.item;
-  console.log(item.id)
-
   return (
     <div className='item-list' style={{ color: item.type === "Income" ? 'green' : 'red'}}>
       <TableRow>
@@ -91,7 +90,7 @@ const IncomeExpenseTable = (props) => {
             <DialogTitle>{item.type}: {item.details}</DialogTitle>
             <DialogContent>
             <Box component="form" 
-            onSubmit={(e) => {handleSubmit(e, item)}}
+            onSubmit={(e) => {handleUpdate(e, item.id)}}
             sx={{'& > :not(style)': { m: 1, width: '25ch' }, }} noValidate autoComplete="off">
               <FormLabel>Date
                 <TextField 

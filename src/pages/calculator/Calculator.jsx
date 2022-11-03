@@ -24,7 +24,6 @@ const Calculator = () => {
   const [downpayment, setDownpayment] = useState(0);
   const [itemList, setItemList] = useState([]);
 
-
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await apis.getUserCalculators(token);

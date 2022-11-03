@@ -27,7 +27,7 @@ const SearchBar = (props) => {
   console.log(listOfProjects)
 
   const navigate = useNavigate();
-
+  
   return (
     <Search>
       <Autocomplete

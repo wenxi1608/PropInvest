@@ -23,7 +23,7 @@ const ProjectPage = () => {
   const [rentalData, setRentalData] = useState({});
   const [salesData, setSalesData] = useState({});
   const [inWatchlist, setInWatchlist] = useState(false);
-  const [calculator, setCalculator] = useState(false);
+  const [calculatorStatus, setCalculatorStatus] = useState(false);
   const [watchlistStatus, setWatchlistStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -35,12 +35,13 @@ const ProjectPage = () => {
 
       // To check if project already exists in user's watchlist/calculator
       const watchlistStatusResponse = await apisWatchlist.getProjectsWatchedByUser(token);
+      const calculatorStatusResponse = await apisCalculator.getUserCalculators(token);
   
       setProjectDetails(response);
       setRentalData(rentalDataResponse);
       setSalesData(salesDataResponse);
       setWatchlistStatus(watchlistStatusResponse.data);
-      // setCalculatorStatus(calculatorStatusResponse);
+      setCalculatorStatus(calculatorStatusResponse.data);
       setLoading(false);
     }
 
@@ -83,7 +84,7 @@ const ProjectPage = () => {
 
       <div className="calculator-button">
         <CalculatorButton tokenExists={tokenExists} projectName={projectName}
-        //  calculatorStatus={calculatorStatus}
+         calculatorStatus={calculatorStatus}
          />
       </div>
 

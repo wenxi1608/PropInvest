@@ -69,8 +69,7 @@ const CalculatorButton = (props) => {
         )
         :
         (
-          <Button variant="contained" href={`/calculator/create/${props.projectName}`}>
-            <TableViewRoundedIcon />
+          <Button variant="contained" href={`/calculator/create/${props.projectName}`} startIcon={<TableViewRoundedIcon/>}>
               Create Calculator
           </Button>
         )  

@@ -51,10 +51,10 @@ const apis = {
     return response;
   },
 
-  updateItems: async (editItems, item, token) => {
+  updateItems: async (editItems, itemId, token) => {
     const response = await axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/api/calculator/update-income-expense`,
-      { editItems, item },
+      { editItems, itemId },
       {
         headers: {
           Authorization: token,

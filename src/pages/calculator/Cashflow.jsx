@@ -9,14 +9,19 @@ const Cashflow = (props) => {
   const expenseItems = props.itemList.filter((item) => {
     return item.type === "Expense"
   })
-  const expenses = expenseItems.map((item)=> {
-    return item.amount
-  })
   const expenseSum = expenseItems.reduce((total, expense) => {
     return total + expense.amount;
   }, 0);
   const cashOutflow = props.bsd + props.absd + props.downpayment + expenseSum
   console.log("total:", cashOutflow)
+
+  // Calculate the cash inflow
+  const incomeItems = props.itemList.filter((item) => {
+    return item.type === "Income"
+  })
+  const cashInflow = incomeItems.reduce((total, income) => {
+    return total + income.amount;
+  }, 0);
 
   return(
     <Grid item xs={12} md={6}>
@@ -24,13 +29,13 @@ const Cashflow = (props) => {
           <Grid container>
             <Grid item>
               <Typography variant="h6">Cash Outflow To Date</Typography>
-              <Typography variant="h6">${cashOutflow}</Typography>
+              <Typography variant="h6">${cashOutflow.toLocaleString("en-US")}</Typography>
             </Grid>
           </Grid>
           <Grid container>
             <Grid item>
               <Typography variant="h6">Cash Inflow To Date</Typography>
-              <Typography variant="h6">$xxx</Typography>
+              <Typography variant="h6">${cashInflow.toLocaleString("en-US")}</Typography>
             </Grid>
           </Grid>
         </Card>

@@ -25,12 +25,8 @@ const IncomeExpenseForm = (props) => {
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
-  const [type, setType] = useState("");
-  const [date, setDate] = useState("");
-  const [details, setDetails] = useState("");
-  const [category, setCategory] = useState("");
   const [item, setItem] = useState({});
-  // const [itemList, setItemList] = useState([]);
+  const [itemList, setItemList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
@@ -58,7 +54,7 @@ const IncomeExpenseForm = (props) => {
     
     try {
       const response = await apis.addIncomeExpense(item, props.projectName, token);
-      props.setItemList([...props.itemList,
+      setItemList([...itemList,
         item
       ])
     } catch(err) {
@@ -71,18 +67,17 @@ const IncomeExpenseForm = (props) => {
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await apis.getItems(props.projectName, token);
-      props.setItemList(response.data);
+      setItemList(response.data);
       setLoading(false);
     };
 
     fetchProjects();
   }, []);
 
-  console.log(props.itemList)
+  console.log(itemList)
 
-  const allItemsInList = props.itemList?.map(item => <IncomeExpenseTable key={item.id} item={item} token={token} itemList={props.itemList} setItemList={props.setItemList}/>);
+  const allItemsInList = itemList?.map(item => <IncomeExpenseTable key={item.id} item={item} token={token} itemList={itemList} setItemList={setItemList}/>);
   
-
   if(loading) {
     return (
       <div style={{ textAlign: "center", margin: "1em"}}>< CircularProgress/></div>

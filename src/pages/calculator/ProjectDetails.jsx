@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Link } from "react-router-dom";
 
 const ProjectDetails = (props) => {
 
@@ -58,7 +59,11 @@ const ProjectDetails = (props) => {
       <Grid item xs={12} md={6}>
         <Card sx={{ maxWidth: 500 }}>
           {props.page === "index"?
-          (data.projectName)
+          (
+            <Link to={`/calculator/${data.projectName}`} style={{textDecoration: "none"}}>
+            {data.projectName}
+            </Link>
+            )
           :
           ("")
           }

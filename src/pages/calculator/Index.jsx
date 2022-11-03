@@ -48,9 +48,7 @@ const CalculatorIndex = () => {
     <div className="index">
     <h1>List Of Projects</h1>
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
         {allCalculatorProjects}
-      </Grid>
     </Box>
     </div>
   )

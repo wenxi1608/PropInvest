@@ -112,9 +112,6 @@ const Navbar = (props) => {
                   <MenuItem>
                     <Link to={"/dashboard"} style={{textDecoration: "none", color: "black"}}>Dashboard</Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link to={"/profile"} style={{textDecoration: "none", color: "black"}}>Profile</Link>
-                  </MenuItem>
                   <MenuItem onClick={logout}>Logout</MenuItem>
                 </Menu>
                 </div>
