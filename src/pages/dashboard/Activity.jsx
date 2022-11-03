@@ -7,6 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import CalculateRoundedIcon from '@mui/icons-material/CalculateRounded';
 
 const Activity = (props) => {
 
@@ -37,12 +39,20 @@ const Activity = (props) => {
               <TableCell>{
               activity.interestRate ?
               (
-                <Link style={{textDecoration: "none"}} to={`/calculator/${activity.projectName}`}>
-                  {`CREATED CALCULATOR FOR ${activity.projectName}`}
-                </Link>
+                <div>
+                  <Link style={{textDecoration: "none"}} to={`/calculator/${activity.projectName}`}>
+                    <CalculateRoundedIcon />
+                    {`CREATED CALCULATOR FOR ${activity.projectName}`}
+                  </Link>
+                </div>
               )
               :
-              (`ADDED ${activity.projectName} TO WATCHLIST`)
+              (
+                <div>
+                  <VisibilityRoundedIcon />
+                  {`ADDED ${activity.projectName} TO WATCHLIST`}
+                </div>
+              )
               }</TableCell>
             </TableRow>
           ))}

@@ -52,10 +52,7 @@ const Dashboard = () => {
   }, []);
   const joinDate = user.createdAt?.slice(0,10)
 
-  console.log(watchlist)
-  console.log(calculator);
   const activity = watchlist.concat(calculator)
-  console.log("Activity:", activity)
 
   if(loading) {
     return (

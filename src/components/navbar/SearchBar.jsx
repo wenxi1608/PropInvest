@@ -24,7 +24,6 @@ const SearchBar = (props) => {
   const listOfProjects = props.projects?.map((p) => {
     return p.project;
   });
-  console.log(listOfProjects)
 
   const navigate = useNavigate();
   

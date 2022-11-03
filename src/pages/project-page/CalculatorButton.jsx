@@ -16,6 +16,10 @@ import TableViewRoundedIcon from '@mui/icons-material/TableViewRounded';
 const CalculatorButton = (props) => {
   
   const [open, setOpen] = useState(false);
+
+  const calculatorExists = props.calculatorStatus.filter((p) => {
+    return p.projectName === props.projectName
+  })
   
   // Handle dialog messages to inform user that they need to be logged in to add to watchlist/calculator
   const handleClickOpen = () => {
@@ -33,7 +37,7 @@ const CalculatorButton = (props) => {
         <div>
         <Button variant="contained" onClick={handleClickOpen}>
           <AddRoundedIcon />
-          Add to Watchlist
+          Create Calculator
         </Button>
         <Dialog
           open={open}
@@ -61,7 +65,7 @@ const CalculatorButton = (props) => {
       (
         <div>
         {
-        props.calculatorStatus? 
+        calculatorExists.length !== 0? 
         (
           <Button variant="contained" disabled startIcon={<DoneRoundedIcon />}>
             Calculator exists
@@ -70,7 +74,7 @@ const CalculatorButton = (props) => {
         :
         (
           <Button variant="contained" href={`/calculator/create/${props.projectName}`} startIcon={<TableViewRoundedIcon/>}>
-              Create Calculator
+            Create Calculator
           </Button>
         )  
         }

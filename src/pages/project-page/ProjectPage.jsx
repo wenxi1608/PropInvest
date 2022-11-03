@@ -23,7 +23,7 @@ const ProjectPage = () => {
   const [rentalData, setRentalData] = useState({});
   const [salesData, setSalesData] = useState({});
   const [inWatchlist, setInWatchlist] = useState(false);
-  const [calculatorStatus, setCalculatorStatus] = useState(false);
+  const [calculatorStatus, setCalculatorStatus] = useState({});
   const [watchlistStatus, setWatchlistStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
