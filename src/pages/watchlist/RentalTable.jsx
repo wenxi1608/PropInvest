@@ -63,7 +63,7 @@ const RentalTable = (props) => {
 
   return (
     <div>
-      <Button variant="text" onClick={handleClickOpen}>
+      <Button variant="text" sx={{marginTop: "1em"}} onClick={handleClickOpen}>
         View Transactions
       </Button>
       <Dialog
@@ -72,7 +72,7 @@ const RentalTable = (props) => {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
+        <AppBar sx={{ position: "relative", background: "rgb(148,102,148)" }}>
           <Toolbar>
             <IconButton
               edge="start"

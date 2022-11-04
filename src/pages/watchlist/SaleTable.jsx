@@ -68,7 +68,7 @@ const SaleTable = (props) => {
 
   return (
     <div>
-      <Button variant="text" onClick={handleClickOpen}>
+      <Button variant="text" sx={{marginTop: "1em"}} onClick={handleClickOpen}>
         View Transactions
       </Button>
       <Dialog

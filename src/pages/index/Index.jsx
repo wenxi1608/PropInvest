@@ -7,63 +7,65 @@ import mainImage from "../../assets/index/4065113.jpg"
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import AutoGraphRoundedIcon from '@mui/icons-material/AutoGraphRounded';
 import PriceChangeRoundedIcon from '@mui/icons-material/PriceChangeRounded';
+import styles from "./Index.scss"
+import SearchBar from "../../components/navbar/SearchBar";
+import Container from '@mui/material/Container';
 
-const Index = () => {
+const Index = (props) => {
   return(
     <div className="index">
-
-      <Grid container>
-        <Grid item xs={12} md={7}>
-          <div className="content-wrapper">
-            <h1>Track property transactions</h1>
-            <p>The one stop platform for property investors to analyse sale prices and rental rates across Singapore</p>
-            <Button variant="contained" href="/register">Sign Up</Button>
-          </div>
+      <Grid container direction="row" className="main">
+        <Grid item md={7}>
+              <div className="title">
+                <h1>Track property transactions, monitor your invesments.</h1>
+              </div>
+            
+              <div className="tagline">
+                <h6>The one stop platform for property investors to analyse sale prices and rental rates across Singapore</h6>
+              </div>
+              <div className="searchbar">
+              <SearchBar projects={props.projects}/>
+              </div>
         </Grid>
-        <Grid item xs={12} md={5}>
-          <div className="image-wrapper">
-            <img src={mainImage} alt="index-page-main-image" height={300}></img>
-          </div>
+
+        <Grid item md={4} className="sub-headers">
+          <Grid container direction="row">
+            <Grid item>
+              <TravelExploreRoundedIcon fontSize="large"/>
+            </Grid>
+            <Grid item>
+              <div className="para">
+                <h5>Search properties</h5>
+                <h6>View the detailed historical transactions of hundreds of projects across Singapore</h6>
+              </div>
+            </Grid>
           </Grid>
-      </Grid>
-
-      <Grid container>
-        <Grid item>
-          <TravelExploreRoundedIcon />
-        </Grid>
-        <Grid item>
-          <div className="search">
-            <h3>Search properties</h3>
-            <p>View the detailed historical transactions of thousands of projects across Singapore</p>
-          </div>
-        </Grid>
-      </Grid>
-
-      <Grid container>
-        <Grid item>
-          <AutoGraphRoundedIcon />
-        </Grid>
-        <Grid item>
-          <div className="watchlist">
-            <h3>Track the price movement</h3>
-            <p>Create a watchlist of properties for comparison to see how your investment is performing</p>
-            </div>
-        </Grid>
-      </Grid>
-
-      <Grid container>
-        <Grid item>
-          <PriceChangeRoundedIcon />
-        </Grid>
-        <Grid item>
-          <div className="watchlist">
-            <h3>Monitor the cashflow of your properties</h3>
-            <p>Tool for investors to track the cash inflow and outflow on your property to date</p>
-            </div>
+          <Grid container direction="row">
+            <Grid item>
+              <AutoGraphRoundedIcon fontSize="large"/>
+            </Grid>
+            <Grid item>
+              <div className="para">
+                <h5>Track price movement</h5>
+                <h6>Create a watchlist of properties for comparison to see how your investment is performing</h6>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container direction="row">
+            <Grid item>
+              <PriceChangeRoundedIcon fontSize="large"/>
+            </Grid>
+            <Grid item>
+              <div className="para">
+                <h5>Monitor the cashflow of your properties</h5>
+                <h6>Tool for investors to track the cash inflow and outflow on your property to date</h6>
+              </div>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
        
-  </div>
+    </div>
   )
 }
 

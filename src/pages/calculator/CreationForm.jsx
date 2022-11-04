@@ -16,6 +16,7 @@ import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import apis from '../../apis/calculator';
+import styles from "./Calculator.scss";
 
 const interestRate = [
   {
@@ -51,14 +52,6 @@ function valuetext(value) {
   return `${value}`;
 }
 
-// function interestRateValue(value) {
-//   return interestRate.findIndex((mark) => mark.value === value) + 1;
-// }
-
-// function loanTenureValue(value) {
-//   return loanTenure.findIndex((mark) => mark.value === value) + 1;
-// }
-
 const CreationForm = () => {
 
   const params = useParams()
@@ -93,14 +86,16 @@ const CreationForm = () => {
 
   return(
 
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+    <div className="creation-form">
+    <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-          <Typography component="h1" variant="h4" align="center">
-            Create Calculator
+          <Typography variant="h4" align="center">
+            CREATE A NEW CALCULATOR
           </Typography>
-          <Box component="form" onSubmit={handleSubmit}  sx={{'& > :not(style)': { m: 1, width: '25ch' }, }} noValidate autoComplete="off">
-            <FormLabel>Project
+          <Box component="form" onSubmit={handleSubmit}  sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
+            <FormLabel className="field">Project
               <TextField 
+              margin="dense"
                 variant="outlined" 
                 name="projectName"
                 fullWidth
@@ -109,8 +104,9 @@ const CreationForm = () => {
                 onChange={handleChange}
                 />
               </FormLabel>
-            <FormLabel>Property Value (S$)
+            <FormLabel className="field">Property Value (S$)
               <TextField 
+              margin="dense"
                 variant="outlined" 
                 name="propertyValue"
                 required
@@ -121,8 +117,9 @@ const CreationForm = () => {
                 onChange={handleChange}
                 />
             </FormLabel>
-            <FormLabel>Properties Owned
+            <FormLabel className="field">Properties Owned
               <TextField 
+              margin="dense"
                 variant="outlined" 
                 name="propertiesOwned"
                 required
@@ -132,7 +129,7 @@ const CreationForm = () => {
                 onChange={handleChange}
                 />
             </FormLabel>
-            <FormLabel>Residency
+            <FormLabel className="field">Residency
             <Select
               fullWidth
               required
@@ -144,9 +141,10 @@ const CreationForm = () => {
               <MenuItem value="PR">PR</MenuItem>
               <MenuItem value="Foreigner">Foreigner</MenuItem>
             </Select>
-            </FormLabel>
-              <FormLabel>Loan Amount (%)
+            </FormLabel >
+              <FormLabel className="field">Loan Amount (%)
               <Slider
+              className="slider"
                 name="loanAmount"
                 aria-label="loan-amount"
                 getAriaValueText={valuetext}
@@ -158,8 +156,9 @@ const CreationForm = () => {
                 onChange={handleChange}
               />
             </FormLabel>
-            <FormLabel>Loan Tenure (Years)
+            <FormLabel className="field">Loan Tenure (Years)
             <Slider
+            className="slider"
               name="loanTenure"
               aria-label="loan-tenure"
               getAriaValueText={valuetext}
@@ -171,8 +170,9 @@ const CreationForm = () => {
               onChange={handleChange}
             />
             </FormLabel>
-            <FormLabel>Interest Rate (%)
+            <FormLabel className="field">Interest Rate (%)
             <Slider
+            className="slider"
               name="interestRate"
               aria-label="interest-rate"
               getAriaValueText={valuetext}
@@ -185,20 +185,18 @@ const CreationForm = () => {
             />
             </FormLabel>
             <Button
+            color="inherit"
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, color: "white", backgroundColor: "rgb(173, 102, 131)" }}
             >
               Create
             </Button>
            </Box>
-          
-          
-        
         </Paper>
     </Container>
-
+    </div>
   )
 }
 

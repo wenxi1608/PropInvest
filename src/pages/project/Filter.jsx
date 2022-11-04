@@ -15,9 +15,9 @@ const Filter = (props) => {
   return (
     <Box sx={{ minWidth: 120 }} style={{marginLeft: "2em"}}>
       <FormControl fullWidth>
-      <InputLabel id="district">Search By District</InputLabel>
-        <Select style={{ width: "20em"}}
-        variant="filled"
+      <InputLabel id="district">Search by district...</InputLabel>
+        <Select style={{ width: "300px", backgroundColor: "white"}}
+        variant="outlined"
         displayEmpty={true}
           value={props.districtFilter}
           label="District"

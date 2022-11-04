@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import apis from "../../apis/watchlist";
 import { toast } from "react-toastify";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import styles from "./ProjectPage.scss"
 
 const WatchlistButton = (props) => {
 
@@ -31,12 +32,12 @@ const WatchlistButton = (props) => {
   };
   
   return(
-    <div>
+    <div className="project-page-button">
       {!props.tokenExists? 
       (
         <div>
-        <Button variant="contained" onClick={handleClickOpen}>
-          <AddRoundedIcon />
+        <Button color="inherit" style={{width: "250px", marginBottom: "1em", color: "white", backgroundColor: "rgb(173, 102, 131)"}} onClick={handleClickOpen}>
+          <AddRoundedIcon/>
           Add to Watchlist
         </Button>
         <Dialog
@@ -54,7 +55,7 @@ const WatchlistButton = (props) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button href="/login">
+            <Button color="inherit" href="/login">
               Sign in
             </Button>
           </DialogActions>
@@ -67,13 +68,13 @@ const WatchlistButton = (props) => {
         {
         projectMatch || props.inWatchlist === true? 
         (
-          <Button variant="contained" disabled startIcon={<DoneRoundedIcon />}>
+          <Button variant="contained" style={{width: "250px", marginBottom: "1em"}} disabled startIcon={<DoneRoundedIcon />}>
             In Watchlist
           </Button>
         )
         :
         (
-          <Button variant="contained" onClick={() => props.handleAddToWatchlist()}>
+          <Button color="inherit" style={{width: "250px", marginBottom: "1em", color: "white", backgroundColor: "rgb(173, 102, 131)"}} variant="contained" onClick={() => props.handleAddToWatchlist()}>
             <AddRoundedIcon />
             Add to Watchlist
           </Button>

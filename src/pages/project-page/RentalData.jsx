@@ -1,7 +1,7 @@
-import styles from "./RentalData.scss"
 import React, { useEffect, useState } from "react"
 import apis from "../../apis/projects"
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
+import styles from "./ProjectPage.scss"
 
 const RentalData = (props) => {
 
@@ -20,9 +20,21 @@ const RentalData = (props) => {
   const avgPsf = (sumPsf / pastYrData.length).toFixed(2)
   
   return(
-    <div className="data">
-      <h1>Average Rental PSF: {pastYrData.length !== 0 ? (`$${avgPsf}`) : ("Not available")}</h1>
-      <h1>Transaction Volume: {pastYrData.length}</h1>
+    <div className="transaction-details">
+      <Grid container direction="row">
+        <Grid item xs={3}>
+          <h2>Average Rental PSF</h2>
+        </Grid>
+        <Grid item xs={3}>
+          <h1>{pastYrData.length !== 0 ? (`$${avgPsf}`) : ("Not available")}</h1> 
+        </Grid>
+        <Grid item xs={3}>
+          <h2>Transaction Volume</h2>
+        </Grid>
+        <Grid item xs={3}>
+          <h1>{pastYrData.length}</h1>
+        </Grid>
+      </Grid>
       <p>based on past year's transactions</p>
     </div>
   )

@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import TableViewRoundedIcon from '@mui/icons-material/TableViewRounded';
+import styles from "./ProjectPage.scss"
 
 const CalculatorButton = (props) => {
   
@@ -31,11 +32,11 @@ const CalculatorButton = (props) => {
   };
   
   return(
-    <div>
+    <div className="project-page-button">
       {!props.tokenExists? 
       (
         <div>
-        <Button variant="contained" onClick={handleClickOpen}>
+        <Button color="inherit" style={{width: "250px", marginBottom: "1em", color: "white", backgroundColor: "rgb(173, 102, 131)"}} variant="contained" onClick={handleClickOpen}>
           <AddRoundedIcon />
           Create Calculator
         </Button>
@@ -54,7 +55,7 @@ const CalculatorButton = (props) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button href="/login">
+            <Button color="inherit" href="/login">
               Sign in
             </Button>
           </DialogActions>
@@ -67,13 +68,13 @@ const CalculatorButton = (props) => {
         {
         calculatorExists.length !== 0? 
         (
-          <Button variant="contained" disabled startIcon={<DoneRoundedIcon />}>
+          <Button style={{width: "250px", marginBottom: "1em"}} variant="contained" disabled startIcon={<DoneRoundedIcon />}>
             Calculator exists
           </Button>
         )
         :
         (
-          <Button variant="contained" href={`/calculator/create/${props.projectName}`} startIcon={<TableViewRoundedIcon/>}>
+          <Button color="inherit" style={{width: "250px", marginBottom: "1em", color: "white", backgroundColor: "rgb(173, 102, 131)"}} variant="contained" href={`/calculator/create/${props.projectName}`} startIcon={<TableViewRoundedIcon/>}>
             Create Calculator
           </Button>
         )  

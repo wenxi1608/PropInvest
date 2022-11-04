@@ -1,4 +1,5 @@
-import styles from "./RentalData.scss"
+import styles from "./ProjectPage.scss";
+import { CircularProgress, Grid } from "@mui/material";
 
 const SaleData = (props) => {
 
@@ -22,11 +23,23 @@ const SaleData = (props) => {
   const formattedAvgPsf = Number(avgPsf).toLocaleString('en-US');
 
   return(
-    <div className="data">
-    <h1>Average Sale Price PSF: {pastYrSalesPsf.length === 0 ? ("Not available") : (`$${formattedAvgPsf}`)}</h1>
-    <h1>Transaction Volume: {pastYrSalesPsf.length}</h1>
-    <p>based on past year's transactions</p>
-  </div>
+      <div className="transaction-details">
+      <Grid container direction="row" wrap="wrap">
+        <Grid item xs={12} md={4}>
+          <h2>Average Sale PSF</h2>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <h1>{pastYrSalesPsf.length === 0 ? ("Not available") : (`$${formattedAvgPsf}`)}</h1> 
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <h2>Transaction Volume</h2>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <h1>{pastYrSalesPsf.length}</h1>
+        </Grid>
+      </Grid>
+      <p>based on past year's transactions</p>
+      </div>
   )
 }
 

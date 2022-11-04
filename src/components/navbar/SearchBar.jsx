@@ -7,16 +7,12 @@ import { styled, alpha } from '@mui/material/styles';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: "white",
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: "white",
   },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
+  // marginLeft: 0,
+  width: 'fit-content',
 }));
 
 const SearchBar = (props) => {
@@ -37,7 +33,7 @@ const SearchBar = (props) => {
           navigate(`/projects/${value}`);
         }}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField  {...params} label="Search projects..." />}
+        renderInput={(params) => <TextField  {...params} label="Search by project name..." />}
         
       />
     </Search>

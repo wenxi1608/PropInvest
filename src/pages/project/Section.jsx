@@ -12,7 +12,7 @@ const sortedProjects = props.results.sort()
 
 // Pagination
 const [page, setPage] = useState(0);
-const projectsPerPage = 50
+const projectsPerPage = 15;
 const pagesVisited = page * projectsPerPage
 const displayProjects = sortedProjects.slice(pagesVisited, pagesVisited + projectsPerPage).map(p => <ProjectCard key={p} results={p} />);
 const changePage = ({selected}) => {
@@ -27,11 +27,6 @@ const changePage = ({selected}) => {
 
   return(
     <div>
-      
-      <Container>
-        {displayProjects}
-      </Container>
-
       <ReactPaginate
         previousLabel = {"<"}
         nextLabel = {">"}
@@ -42,12 +37,12 @@ const changePage = ({selected}) => {
         nextLinkClassName={"next-button"}
         activeClassName={"active"}
       />
-
-      </div>
-    )
-
+      <Container style={{marginBottom: "1em"}}>
+        {displayProjects}
+      </Container>
+    </div>
+  )
 }
-
 
 export default Section;
 

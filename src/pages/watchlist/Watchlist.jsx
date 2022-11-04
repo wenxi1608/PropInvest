@@ -12,6 +12,7 @@ import CardContent from '@mui/material/CardContent';
 import Section from "./Section";
 import DeleteButton from "./DeleteButton";
 import { toast } from "react-toastify";
+import styles from "./Watchlist.scss"
 
 const Watchlist = () => {
 
@@ -64,18 +65,20 @@ const Watchlist = () => {
           <Grid item xs={10}>
             <h1>Property Watchlist</h1>
           </Grid>
-          <Grid item xs={2} alignContent="center">
-            <Button variant="outlined" startIcon={<EditRoundedIcon/>} onClick={handleEdit}>Edit</Button>
+          <Grid item xs={2} sx={{marginTop: "3em", textAlign: "right"}}>
+            <Button color="inherit" sx={{color: "white", backgroundColor: "rgb(173, 102, 131)"}} variant="outlined" startIcon={<EditRoundedIcon/>} onClick={handleEdit}>Edit</Button>
           </Grid>
         </Grid>
       </Container>
       <Container>
         <Stack direction="row" spacing={1}>
-          <Chip label="Rent Psf" variant="outlined" color="primary" onClick={handleClickOnRent} />
-          <Chip label="Sale Psf" variant="outlined" color="primary" onClick={handleClickOnSale} />
+          <Chip label="Rent Psf" style={{backgroundColor: "white", color: "purple", border: "1px solid purple"}} variant="filled" color="secondary" onClick={handleClickOnRent} />
+          <Chip label="Sale Psf" style={{backgroundColor: "white", color: "purple", border: "1px solid purple"}} variant="outlined" color="secondary" onClick={handleClickOnSale} />
         </Stack>
       </Container>
-      <Section token={token} edit={edit} dataType={dataType} />
+      <div className="watchlist-table">
+        <Section token={token} edit={edit} dataType={dataType} />
+      </div>
       {/* <Section token={token} edit={edit} dataType={dataType} handleDelete={handleDelete} setProjectToDelete={setProjectToDelete} projectToDelete={projectToDelete} /> */}
       </div>
       )

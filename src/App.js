@@ -79,7 +79,7 @@ function App() {
         setTokenState={setTokenState}
       />
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Index projects={projects} />} />
         <Route
           path="/projects"
           element={

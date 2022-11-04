@@ -56,7 +56,7 @@ const Section = (props) => {
   return(
     <div>
       <Container>
-      <Card variant="outlined" style={{marginBottom: "0.5em", marginTop: "1em", textAlign: "center"}}> 
+      <Card variant="outlined" style={{ marginTop: "2em", textAlign: "center", fontWeight: "bolder", color: "white", backgroundColor: "rgb(173, 102, 131)"}}> 
       <CardContent>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
@@ -82,7 +82,7 @@ const Section = (props) => {
         </Box>
       </CardContent>
       </Card>
-        {allProjectsInWatchlist}
+          {allProjectsInWatchlist}
       </Container>
     </div>
   )

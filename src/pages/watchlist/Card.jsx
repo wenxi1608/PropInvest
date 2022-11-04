@@ -146,13 +146,13 @@ const WatchlistCard = (props) => {
     <div>
     {props.dataType === "Rent" ?
     (
-      <Card sx={{ minWidth: 275 }} variant="outlined" style={{marginBottom: "1em", textAlign:"center"}}> 
+      <Card sx={{ minWidth: 275 }} variant="outlined" style={{textAlign:"center"}}> 
         <CardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
               <Grid item xs={2} md={2}>
                 <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
-                  <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+                  <Typography sx={{ fontSize: 14, fontWeight: "bold" }} color="text.primary" gutterBottom>
                     {getProject}
                   </Typography>
                 </Link>
@@ -235,7 +235,7 @@ const WatchlistCard = (props) => {
                 </div>
               </Grid>
             </Grid>
-            <Grid container direction="row" justifyContent="center" alignItems="flex-end" >
+            <Grid container direction="row" justifyContent="center" alignItems="flex-end">
               <RentalTable name={getProject[0]} data={rentalTxn2022}/>
             </Grid>
             <Grid container direction="row" justifyContent="center" alignItems="flex-end">
@@ -247,13 +247,13 @@ const WatchlistCard = (props) => {
     )
     :
     (
-      <Card sx={{ minWidth: 275 }} variant="outlined" style={{marginBottom: "1em", textAlign:"center"}}> 
+      <Card sx={{ minWidth: 275 }} variant="outlined" style={{textAlign:"center"}}> 
         <CardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
               <Grid item xs={2} md={2}>
                 <Link to={`/projects/${projectUrl}`} style={{textDecoration: "none"}}>
-                  <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+                  <Typography sx={{ fontSize: 14, fontWeight: "bold" }} color="text.primary" gutterBottom>
                     {getProject}
                   </Typography>
                 </Link>

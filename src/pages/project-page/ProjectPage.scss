@@ -1,0 +1,37 @@
+.header {
+  padding: 2em;
+  color: rgb(173, 102, 131);
+  line-height: 1.0;
+  max-width: 80%;
+  h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+  }
+
+  h5 {
+    margin: 0 0 0 5px;
+    font-size: large;
+  }
+}
+
+.button {
+  margin-top: 5em;
+}
+
+.data {
+  background-color: white;
+  color: rgb(173, 102, 131);
+  padding: 1em;
+  margin: 2em 8em 1em 8em;
+  border: 1px solid rgb(173, 102, 131);
+  border-radius: 10px;
+  h1 {
+    margin: 0;
+  }
+}
+
+.transaction-details {
+  h1 {
+    font-size: 300%;
+  }
+}

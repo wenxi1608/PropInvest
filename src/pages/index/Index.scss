@@ -1,0 +1,53 @@
+.index {
+  background-image: url("../../assets/index/v613-taus-16-urbangradientbackground.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;
+  background-position: center;
+  min-height: 1000px;
+  h1 {
+    margin-bottom: 0.1em;
+    line-height: 1.0;
+    max-width: 80%;
+  }
+}
+
+.title {
+  font-size: 2em;
+  margin-left: 1em;
+  margin-top: 1em;
+  color: rgb(210, 142, 157);
+}
+
+.tagline {
+  max-width: 80%;
+  margin-left: 2em;
+  color: rgb(210, 142, 157);
+  h6 {
+    font-size: 1em;
+    margin-top: 1em;
+  }
+}
+
+.searchbar {
+  max-width: 50%;
+  margin-left: 2em;
+}
+
+.sub-headers {
+  color: rgb(173, 102, 131);
+  font-size: large;
+  padding: 3em;
+
+  h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
+  }
+  h6 {
+    margin-top: 0;
+    margin-bottom: 2em;
+    margin-left: 1em;
+  }
+}
+
+

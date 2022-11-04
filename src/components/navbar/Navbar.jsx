@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import Divider from '@mui/material/Divider';
 
 const Navbar = (props) => {
  
@@ -44,7 +45,7 @@ const Navbar = (props) => {
 
   return(
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: "rgb(148,102,148)" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -56,7 +57,7 @@ const Navbar = (props) => {
           >
             <MapsHomeWorkRoundedIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }} style={{fontWeight:"bold"}}>
             PropInvest
           </Typography>
 
@@ -64,8 +65,9 @@ const Navbar = (props) => {
             {
               !props.tokenState? (
                 <div>
+                  <Button color="inherit" href="/projects">Find Properties</Button>
                   <Button color="inherit" href="/login">Login</Button>
-                  <Button variant="contained" href="/register">Sign Up</Button>
+                  <Button color="inherit" style={{backgroundColor: "rgb(245,201,202)"}} variant="contained" href="/register">Sign Up</Button>
                 </div>
               ) : (
                 <div>
@@ -74,6 +76,7 @@ const Navbar = (props) => {
                   color: "white",
                   textDecoration: "none",
                 }}>Find Properties</Link>
+                  
                   <Link to={"/watchlist"} style={{
                   padding: "6px 4px",
                   color: "white",

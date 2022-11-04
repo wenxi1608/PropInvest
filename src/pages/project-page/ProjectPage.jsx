@@ -3,13 +3,17 @@
  import apisProjects from "../../apis/projects";
  import apisWatchlist from "../../apis/watchlist";
  import apisCalculator from "../../apis/calculator";
- import { CircularProgress } from "@mui/material";
+ import { CircularProgress, Grid } from "@mui/material";
  import Overview from "./Overview"
  import WatchlistButton from "./WatchlistButton";
  import CalculatorButton from "./CalculatorButton";
  import SaleData from "./SaleData";
  import RentalData from "./RentalData";
  import { toast } from "react-toastify";
+ import styles from "./ProjectPage.scss";
+ import TagRoundedIcon from '@mui/icons-material/TagRounded';
+ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+ import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 
 const ProjectPage = () => {
 
@@ -72,33 +76,43 @@ const ProjectPage = () => {
   }
 
   return (
-    <div>
-      
-      <h1>{projectName}</h1>
-      <h5>{projectDetails[0].street}</h5> 
-      <h5>District {projectDetails[0].rental[0].district}</h5>
-      
-      <div className="watchlist-button">
-        <WatchlistButton tokenExists={tokenExists} watchlistStatus={watchlistStatus} handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
-      </div>
+    <div className="index">
 
-      <div className="calculator-button">
-        <CalculatorButton tokenExists={tokenExists} projectName={projectName}
-         calculatorStatus={calculatorStatus}
-         />
-      </div>
-
-      <div className="sale-data">
+      <Grid container direction="row">
+        <Grid item xs={8}>
+          <div className="header">
+            <h1>{projectName}</h1>
+            <h5>
+              <LocationOnRoundedIcon style={{marginRight: "5px"}}/>
+              {projectDetails[0].street}
+              </h5> 
+            <h5>
+              <TagRoundedIcon style={{marginRight: "5px"}}/>
+              District {projectDetails[0].rental[0].district}
+              </h5>
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div className="button">
+            <WatchlistButton tokenExists={tokenExists} watchlistStatus={watchlistStatus} handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
+            <CalculatorButton tokenExists={tokenExists} projectName={projectName}
+            calculatorStatus={calculatorStatus}
+            />
+          </div>
+        </Grid>
+      </Grid>
+      
+      <div className="data">
         {!salesData[0]? (
-          <p>No sale transactions in the past year</p>
+          <h1><ErrorRoundedIcon/>No sale transactions in the past year</h1>
         ):(
           <SaleData details={salesData}/>
         )}
       </div>
 
-      <div className="rental-data">
-        {!rentalData[0]? (
-          <p>No rental transactions in the past year</p>
+      <div className="data">
+        {!rentalData[0]? (         
+          <h1><ErrorRoundedIcon/>   No rental transactions in the past year</h1>
         ):(
           <RentalData details={rentalData}/>
         )}
