@@ -25,6 +25,7 @@ import calculatorApis from "../../apis/calculator";
 import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 
+
 const mdTheme = createTheme();
 
 const Dashboard = () => {
@@ -67,7 +68,7 @@ const Dashboard = () => {
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4} lg={3}>
-            <Paper variant="outlined" style={{border: "1px"}} sx={{p: 2, display: 'flex', flexDirection: 'column', height: 240}}>
+            <Paper variant="outlined" sx={{p: 2, display: 'flex', flexDirection: 'column', height: 240, border: "none", backgroundColor: "rgb(255, 224, 217)" }}>
               <Title>Hello</Title>
                 <Typography component="p" variant="h3">
                   {user.firstName}

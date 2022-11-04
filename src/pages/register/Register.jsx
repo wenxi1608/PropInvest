@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MapsHomeWorkRoundedIcon from '@mui/icons-material/MapsHomeWorkRounded';
+import styles from "../login/Auth.scss"
 
 function Copyright(props) {
   return (
@@ -58,7 +59,7 @@ const Register = () => {
   };
 
   return (
-    <div className="registration-page">
+    <div className="login-signup-page">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />

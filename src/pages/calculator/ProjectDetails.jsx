@@ -55,7 +55,7 @@ const ProjectDetails = (props) => {
 
   return (
     <div>
-    <Grid container direction="row" justifyContent="center" alignItems="center" margin="2em">
+    <Grid container direction="row" alignItems="center" width="50em">
       <Grid item xs={12} md={6}>
         <Card sx={{ maxWidth: 500 }}>
           {props.page === "index"?
@@ -67,12 +67,12 @@ const ProjectDetails = (props) => {
           :
           ("")
           }
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{border: "2px solid purple"}}>
           <Table aria-label="simple table">
             <TableBody>
               <TableRow>
                 <TableCell>Property Value</TableCell>
-                <TableCell>${data.propertyValue}</TableCell>
+                <TableCell>${data.propertyValue.toLocaleString("en-US")}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Loan Amount</TableCell>
@@ -88,11 +88,11 @@ const ProjectDetails = (props) => {
               </TableRow>
               <TableRow>
                 <TableCell>Buyer's Stamp Duty</TableCell>
-                <TableCell>${buyersStampDuty}</TableCell>
+                <TableCell>${buyersStampDuty.toLocaleString("en-US")}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Additional Buyer's Stamp Duty</TableCell>
-                <TableCell>${addBuyersStampDuty}</TableCell>
+                <TableCell>${addBuyersStampDuty.toLocaleString("en-US")}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

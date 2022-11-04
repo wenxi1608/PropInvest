@@ -37,9 +37,12 @@ const changePage = ({selected}) => {
         nextLinkClassName={"next-button"}
         activeClassName={"active"}
       />
-      <Container style={{marginBottom: "1em"}}>
-        {displayProjects}
-      </Container>
+      <div>
+        <Container style={{paddingBottom: "2em"}}>
+          {displayProjects}
+        </Container>
+
+      </div>
     </div>
   )
 }

@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import apis from '../../apis/users';
 import { toast } from 'react-toastify';
+import styles from "./Auth.scss";
 
 function Copyright(props) {
   return (

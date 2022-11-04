@@ -27,6 +27,7 @@ const apis = {
   },
 
   deleteFromWatchlist: async (projectName, token) => {
+    console.log("from APIs:", projectName, token);
     const response = await axios.delete(
       `${process.env.REACT_APP_BACKEND_URL}/api/watchlist/delete/${projectName}`,
       {

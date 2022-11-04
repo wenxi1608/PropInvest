@@ -86,28 +86,28 @@ const IncomeExpenseForm = (props) => {
 
   return(
     <div className="income-expense-form">
-      <Grid container direction="row" style={{margin: "1em", textAlign: "center", maxWidth: "90%"}}>
-        <label>Type</label>
-        <select name="type" onChange={handleCreateChange}>
-          <option value="Income">Income</option>
-          <option value="Expense">Expense</option>
-        </select>
-        <label>Date</label>
-          <input name="date" type="date" onChange={handleCreateChange}/>
-        <label>Details</label>
-          <input name="details" type="text" onChange={handleCreateChange}/>
-        <label>Amount ($)</label>
-          <input name="amount" type="number"onChange={handleCreateChange}/>
-        <label>Category</label>
-          <select name="category" onChange={handleCreateChange}>
-            <option value="Rent">Rent</option>
-            <option value="Property Tax">Property Tax</option>
-            <option value="Maintenance Fees">Maintenance Fees</option>
-            <option value="Management Fee">Management Fee</option>
-            <option value="Miscellaneous">Miscellaneous</option>
-          </select>
-          <button onClick={handleCreate}>Add Item</button>
-      </Grid>
+      <Box component="form">
+        <FormLabel>Type</FormLabel>
+        <Select name="type" onChange={handleCreateChange} fullWidth required sx={{minWidth: "150px", margin: "10px"}}>
+          <MenuItem value="Income">Income</MenuItem>
+          <MenuItem value="Expense">Expense</MenuItem>
+        </Select>
+        <FormLabel>Date</FormLabel>
+          <TextField name="date" type="date" onChange={handleCreateChange} fullWidth required sx={{minWidth: "100px", margin: "10px"}}/>
+        <FormLabel>Details</FormLabel>
+          <TextField name="details" type="text" onChange={handleCreateChange} fullWidth required sx={{minWidth: "200px", margin: "10px"}}/>
+        <FormLabel>Amount ($)</FormLabel>
+          <TextField name="amount" type="number"onChange={handleCreateChange} fullWidth required sx={{minWidth: "100px", margin: "10px"}}/>
+        <FormLabel>Category</FormLabel>
+          <Select name="category" onChange={handleCreateChange} fullWidth required sx={{minWidth: "100px", margin: "10px"}}>
+            <MenuItem value="Rent">Rent</MenuItem>
+            <MenuItem value="Property Tax">Property Tax</MenuItem>
+            <MenuItem value="Maintenance Fees">Maintenance Fees</MenuItem>
+            <MenuItem value="Management Fee">Management Fee</MenuItem>
+            <MenuItem value="Miscellaneous">Miscellaneous</MenuItem>
+          </Select>
+          <Button variant="outlined" onClick={handleCreate}>Add Item</Button>
+      </Box>
       <Grid direction="row" container style={{margin: "1em", textAlign: "center", maxWidth: "90%"}}>
         <TableContainer direction="row" component={Paper} sx={{ maxHeight: 600 }}>
         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
