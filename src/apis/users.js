@@ -29,7 +29,6 @@ const apis = {
   },
 
   userDetails: async (token) => {
-    console.log(token);
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/users/details`,
       {

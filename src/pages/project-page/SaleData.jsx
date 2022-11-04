@@ -24,17 +24,17 @@ const SaleData = (props) => {
 
   return(
       <div className="transaction-details">
-      <Grid container direction="row" wrap="wrap">
-        <Grid item xs={12} md={4}>
+      <Grid container direction="row">
+        <Grid item xs={3}>
           <h2>Average Sale PSF</h2>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={3}>
           <h1>{pastYrSalesPsf.length === 0 ? ("Not available") : (`$${formattedAvgPsf}`)}</h1> 
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={3}>
           <h2>Transaction Volume</h2>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={3}>
           <h1>{pastYrSalesPsf.length}</h1>
         </Grid>
       </Grid>

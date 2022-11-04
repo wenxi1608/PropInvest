@@ -40,7 +40,6 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(registrationData)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

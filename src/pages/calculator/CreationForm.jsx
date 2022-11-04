@@ -69,7 +69,6 @@ const CreationForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(calculatorData)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

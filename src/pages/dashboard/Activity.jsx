@@ -14,14 +14,7 @@ const Activity = (props) => {
 
   const token = localStorage.getItem("user_token");
   const user = jwt_decode(token).data.firstName;
-
-  console.log(props.activity)
-
-  const sou = props.activity.map(activity => {
-   return activity.createdAt
-  })
-  console.log(sou)
-
+  
   return (
     <React.Fragment>
       <Title>Recent Activity</Title>

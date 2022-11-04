@@ -47,7 +47,6 @@ const IncomeExpenseForm = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log("item:", item)
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -73,8 +72,6 @@ const IncomeExpenseForm = (props) => {
 
     fetchProjects();
   }, []);
-
-  console.log(itemList)
 
   const allItemsInList = itemList?.map(item => <IncomeExpenseTable key={item.id} item={item} token={token} itemList={itemList} setItemList={setItemList}/>);
   
@@ -119,7 +116,6 @@ const IncomeExpenseForm = (props) => {
               <TableCell>Amount ($)</TableCell>
               <TableCell>Edit</TableCell>
             </TableRow> */}
-     
           <TableBody>
             {allItemsInList}
           </TableBody>

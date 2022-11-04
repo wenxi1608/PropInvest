@@ -58,7 +58,7 @@ const Login = (props) => {
   };
 
   return (
-    <div className="login-page">
+    <div className="login-signup-page">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />

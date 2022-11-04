@@ -34,7 +34,6 @@ const CalculatorIndex = () => {
 
     fetchProjects();
   }, []);
-  console.log(calculatorProjects)
 
   const allCalculatorProjects = calculatorProjects?.map(p => <ProjectDetails page={"index"} key={p.id} calculatorData={p} setBsd={setBsd} setAbsd={setAbsd} setDownpayment={setDownpayment}/>)
   if(loading) {

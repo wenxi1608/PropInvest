@@ -48,17 +48,7 @@ const SaleTable = (props) => {
     fetchProjects()
   }, [])
 
-  console.log(saleTxn2022)
   const dataFor2022 = saleTxn2022[0]?.transaction;
-
-  // console.log(saleTxn2022.length)
-  // let test = []
-  // if(saleTxn2022.length !== 0) {
-  //   test = saleTxn2022[0]?.transaction[0].price
-  //   const price = Number(test).toLocaleString("en-US")
-  //   console.log("Data 2022 test:", price)
-  // }
-  
 
   if(loading) {
     return (
@@ -77,7 +67,7 @@ const SaleTable = (props) => {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
+        <AppBar sx={{ position: 'relative', background: "rgb(148,102,148)" }}>
           <Toolbar>
             <IconButton
               edge="start"

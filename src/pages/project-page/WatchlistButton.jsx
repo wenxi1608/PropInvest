@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import CircularProgress from "@mui/material/CircularProgress";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,12 +14,12 @@ import styles from "./ProjectPage.scss"
 
 const WatchlistButton = (props) => {
 
+  const [open, setOpen] = useState(false);
+
   // Check if project exists in user watchlist
-  const projectMatch = props.watchlistStatus.find((p) => {
+  const projectMatch = props.watchlistStatus?.find((p) => {
     return p === props.projectName
   })
-  
-  const [open, setOpen] = useState(false);
   
   // Handle dialog messages to inform user that they need to be logged in to add to watchlist/calculator
   const handleClickOpen = () => {

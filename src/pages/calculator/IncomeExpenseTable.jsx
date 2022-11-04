@@ -24,7 +24,6 @@ const IncomeExpenseTable = (props) => {
   const [open, setOpen] = useState(false);
   const [editItems, setEditItems] = useState({})
   const item = props.item;
-  console.log(item.id)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,7 +68,6 @@ const IncomeExpenseTable = (props) => {
     
     try {
       const response = await apis.deleteItem(itemToDelete, props.token)
-      console.log("Delete:", response)
       props.setItemList(props.itemList.filter((item) => {
         return item.id !== itemToDelete
         }))

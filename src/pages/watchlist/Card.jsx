@@ -277,7 +277,7 @@ const WatchlistCard = (props) => {
                         (
                         <div>
                           <ArrowDropDownRoundedIcon fontSize="large" color="error"/>
-                          <Typography style={{color: "red"}}>{salePercentageChange}%</Typography>
+                          <Typography style={{color: "red"}}>${saleChange}</Typography>
                         </div>
                         )
                   )
@@ -294,7 +294,7 @@ const WatchlistCard = (props) => {
                       <div>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                           <Grid item><ArrowDropUpRoundedIcon fontSize="large" color="success"/></Grid>
-                          <Grid item><Typography style={{color: "green"}}>{salePercentageChange}%</Typography></Grid>
+                          <Grid item><Typography style={{color: "green"}}>${saleChange}</Typography></Grid>
                         </Grid>
                       </div>
                       )

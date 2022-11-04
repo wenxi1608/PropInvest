@@ -2,8 +2,6 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
-import mainImage from "../../assets/index/4065113.jpg"
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import AutoGraphRoundedIcon from '@mui/icons-material/AutoGraphRounded';
 import PriceChangeRoundedIcon from '@mui/icons-material/PriceChangeRounded';

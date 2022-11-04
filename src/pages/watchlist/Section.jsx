@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import apis from "../../apis/watchlist";
 import WatchlistCard from "./Card";
-import { Container, CircularProgress, Typography } from "@mui/material";
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import DeleteButton from "./DeleteButton";
+import { Container, CircularProgress, Grid, Box, Card, CardContent } from "@mui/material";
 import { toast } from "react-toastify";
 
 const Section = (props) => {
 
   const [watchedProjects, setWatchedProjects] = useState();
-  // const [deleted, setDeleted] = useState();
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {

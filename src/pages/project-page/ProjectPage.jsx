@@ -28,7 +28,7 @@ const ProjectPage = () => {
   const [salesData, setSalesData] = useState({});
   const [inWatchlist, setInWatchlist] = useState(false);
   const [calculatorStatus, setCalculatorStatus] = useState({});
-  const [watchlistStatus, setWatchlistStatus] = useState("");
+  const [watchlistStatus, setWatchlistStatus] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -94,8 +94,10 @@ const ProjectPage = () => {
         </Grid>
         <Grid item xs={4}>
           <div className="button">
-            <WatchlistButton tokenExists={tokenExists} watchlistStatus={watchlistStatus} handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
-            <CalculatorButton tokenExists={tokenExists} projectName={projectName}
+            <WatchlistButton token={token} tokenExists={tokenExists} 
+            watchlistStatus={watchlistStatus}
+             handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
+            <CalculatorButton token={token} tokenExists={tokenExists} projectName={projectName}
             calculatorStatus={calculatorStatus}
             />
           </div>
@@ -104,7 +106,7 @@ const ProjectPage = () => {
       
       <div className="data">
         {!salesData[0]? (
-          <h1><ErrorRoundedIcon/>No sale transactions in the past year</h1>
+          <h1><ErrorRoundedIcon/>   No sale transactions in the past year</h1>
         ):(
           <SaleData details={salesData}/>
         )}

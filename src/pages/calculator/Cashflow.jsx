@@ -4,8 +4,7 @@ import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 
 const Cashflow = (props) => {
-  console.log(props.bsd, props.absd, props.downpayment, props.itemList)
-
+  
   // Calculate cash outflow (BSD + ABSD + downpayment + expenses)
   const expenseItems = props.itemList.filter((item) => {
     return item.type === "Expense"
@@ -14,13 +13,11 @@ const Cashflow = (props) => {
     return total + expense.amount;
   }, 0);
   const cashOutflow = props.bsd + props.absd + props.downpayment + expenseSum
-  console.log("total:", cashOutflow)
 
   // Calculate the cash inflow
   const incomeItems = props.itemList.filter((item) => {
     return item.type === "Income"
   })
-  console.log(incomeItems)
   const cashInflow = incomeItems.reduce((total, income) => {
     return total + income.amount;
   }, 0);
