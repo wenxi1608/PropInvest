@@ -1,7 +1,4 @@
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
+import { Typography, Box } from "@mui/material";
 
 const Cashflow = (props) => {
   
@@ -10,17 +7,18 @@ const Cashflow = (props) => {
     return item.type === "Expense"
   })
   const expenseSum = expenseItems.reduce((total, expense) => {
-    return total + expense.amount;
+    return total + parseInt(expense.amount);
   }, 0);
   const cashOutflow = props.bsd + props.absd + props.downpayment + expenseSum
 
-  // Calculate the cash inflow
+  // Calculate cash inflow (all items with Type of "Income")
   const incomeItems = props.itemList.filter((item) => {
     return item.type === "Income"
   })
   const cashInflow = incomeItems.reduce((total, income) => {
-    return total + income.amount;
+    return total + parseInt(income.amount);
   }, 0);
+  console.log(typeof props.itemList[2].amount)
 
   return(
     <Box sx={{marginBottom: "2em", color: "rgb(210, 142, 157)"}}>

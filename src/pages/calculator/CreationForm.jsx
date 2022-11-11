@@ -1,22 +1,8 @@
-import Container from '@mui/material/Container';
+import { Container, Paper, Typography, TextField, Box, MenuItem, FormLabel, Slider, Select, Button } from '@mui/material';
 import React, { useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
-import { FormLabel } from '@mui/material';
-import Slider from '@mui/material/Slider';
-import Select from '@mui/material/Select';
-import { useParams } from "react-router-dom";
-import Button from '@mui/material/Button';
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
 import apis from '../../apis/calculator';
-import styles from "./Calculator.scss";
 
 const interestRate = [
   {
