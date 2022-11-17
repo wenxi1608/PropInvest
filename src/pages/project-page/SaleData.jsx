@@ -1,5 +1,4 @@
-import styles from "./ProjectPage.scss";
-import { CircularProgress, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 const SaleData = (props) => {
 

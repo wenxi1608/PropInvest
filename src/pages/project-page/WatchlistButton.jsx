@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Button from '@mui/material/Button';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { useParams } from "react-router-dom";
-import apis from "../../apis/watchlist";
-import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import apisWatchlist from "../../apis/watchlist";
+import { Button,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import styles from "./ProjectPage.scss"
 
 const WatchlistButton = (props) => {
 
   const [open, setOpen] = useState(false);
+  const [watchlistStatus, setWatchlistStatus] = useState();
 
   // Check if project exists in user watchlist
-  const projectMatch = props.watchlistStatus?.find((p) => {
+  useEffect(() => {
+    const fetchProjects = async() => {
+      const response = await apisWatchlist.getProjectsWatchedByUser(props.token);
+      setWatchlistStatus(response.data);
+    }
+
+    fetchProjects()
+  }, [])
+
+  const projectMatch = watchlistStatus?.find((p) => {
     return p === props.projectName
   })
   

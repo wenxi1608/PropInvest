@@ -1,21 +1,12 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { Link } from "react-router-dom";
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import React, {useEffect, useState} from "react"
+import {useEffect, useState} from "react";
 import projectApis from "../../apis/projects";
-import watchlistApis from "../../apis/watchlist";
-import { Container, CircularProgress, Button } from "@mui/material";
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
-import RentalTable from './RentalTable';
-import SaleTable from './SaleTable';
+import RentalTable from "./RentalTable";
+import SaleTable from "./SaleTable";
 import DeleteButton from "./DeleteButton";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { CircularProgress, Card, CardContent, Typography, Box, Paper, Grid, styled } from "@mui/material";
+import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

@@ -17,6 +17,8 @@ const Search = styled('div')(({ theme }) => ({
 
 const SearchBar = (props) => {
 
+  console.log(props.projects)
+
   const listOfProjects = props.projects?.map((p) => {
     return p.project;
   });

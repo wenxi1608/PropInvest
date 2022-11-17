@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import apis from "../../apis/projects"
-import { Card, Container, CircularProgress, Grid } from "@mui/material";
+import { useState } from "react";
+import { Grid } from "@mui/material";
 import Section from "./Section";
-import Filter from "./Filter"
-import ReactPaginate from "react-paginate"
-import styles from "./Projects.scss"
+import Filter from "./Filter";
+import styles from "./Projects.scss";
 import SearchBar from "../../components/navbar/SearchBar";
 
 const AllProjects = (props) => {

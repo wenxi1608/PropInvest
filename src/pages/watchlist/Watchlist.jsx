@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from "react";
-import apis from "../../apis/watchlist";
-import WatchlistCard from "./Card";
-import { Container, CircularProgress, Button, Typography } from "@mui/material";
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import { useState } from "react";
 import Section from "./Section";
-import DeleteButton from "./DeleteButton";
-import { toast } from "react-toastify";
+import { Container, Button, Grid, Chip, Stack } from "@mui/material";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import styles from "./Watchlist.scss"
 
 const Watchlist = () => {
@@ -33,27 +23,6 @@ const Watchlist = () => {
   const handleClickOnSale = async() => {
     setDataType("Sale");
   };
-
-  // Delete project from watchlist when user clicks on delete button
-  // const [projectToDelete, setProjectToDelete] = useState(false);
-  // useEffect(() => {
-  //   console.log(projectToDelete)
-  // }, [projectToDelete])
-  // const handleDelete = async(p) => {
-    
-  //   try {
-  //     const response = await apis.deleteFromWatchlist(p, token)
-  //     if(response.data.error) {
-  //       toast.error(response.data.error);
-  //     } else {
-  //       setProjectToDelete(true);
-  //       toast.success(`${p} REMOVED FROM WATCHLIST`);
-  //     }
-  //   } catch (err) {
-  //     toast.error("Unable to remove from watchlist")
-  //     console.log(err)
-  //   }
-  // }
 
   return(
     <div>

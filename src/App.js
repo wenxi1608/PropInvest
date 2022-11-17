@@ -1,9 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import apis from "../src/apis/projects";
+import projectApis from "../src/apis/projects";
 import { CircularProgress } from "@mui/material";
 
 // Pages
@@ -48,7 +48,7 @@ function App() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await apis.getAllProjects();
+      const response = await projectApis.getAllProjects();
       setProjects(response);
       setLoading(false);
     };

@@ -1,20 +1,18 @@
  import { useParams } from "react-router-dom";
- import React, {useEffect, useState} from "react"
+ import {useEffect, useState} from "react";
  import apisProjects from "../../apis/projects";
  import apisWatchlist from "../../apis/watchlist";
- import apisCalculator from "../../apis/calculator";
- import { CircularProgress, Grid } from "@mui/material";
- import Overview from "./Overview"
  import WatchlistButton from "./WatchlistButton";
  import CalculatorButton from "./CalculatorButton";
  import SaleData from "./SaleData";
  import RentalData from "./RentalData";
  import { toast } from "react-toastify";
- import styles from "./ProjectPage.scss";
+ import { CircularProgress, Grid } from "@mui/material";
  import TagRoundedIcon from '@mui/icons-material/TagRounded';
  import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
  import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
-
+ import styles from "./ProjectPage.scss";
+ 
 const ProjectPage = () => {
 
   const params = useParams()
@@ -27,8 +25,6 @@ const ProjectPage = () => {
   const [rentalData, setRentalData] = useState({});
   const [salesData, setSalesData] = useState({});
   const [inWatchlist, setInWatchlist] = useState(false);
-  const [calculatorStatus, setCalculatorStatus] = useState({});
-  const [watchlistStatus, setWatchlistStatus] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,15 +33,9 @@ const ProjectPage = () => {
       const rentalDataResponse = await apisProjects.getRentalPsfByProject(projectName);
       const salesDataResponse = await apisProjects.getSalesTxnByProject(projectName);
 
-      // To check if project already exists in user's watchlist/calculator
-      const watchlistStatusResponse = await apisWatchlist.getProjectsWatchedByUser(token);
-      const calculatorStatusResponse = await apisCalculator.getUserCalculators(token);
-  
       setProjectDetails(response);
       setRentalData(rentalDataResponse);
       setSalesData(salesDataResponse);
-      setWatchlistStatus(watchlistStatusResponse.data);
-      setCalculatorStatus(calculatorStatusResponse.data);
       setLoading(false);
     }
 
@@ -94,12 +84,8 @@ const ProjectPage = () => {
         </Grid>
         <Grid item xs={4}>
           <div className="button">
-            <WatchlistButton token={token} tokenExists={tokenExists} 
-            watchlistStatus={watchlistStatus}
-             handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
-            <CalculatorButton token={token} tokenExists={tokenExists} projectName={projectName}
-            calculatorStatus={calculatorStatus}
-            />
+            <WatchlistButton token={token} tokenExists={tokenExists} handleAddToWatchlist={handleAddToWatchlist} projectName={projectName} inWatchlist={inWatchlist}/>
+            <CalculatorButton token={token} tokenExists={tokenExists} projectName={projectName}/>
           </div>
         </Grid>
       </Grid>

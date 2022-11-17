@@ -1,8 +1,8 @@
-import { Container, Paper, Typography, TextField, Box, MenuItem, FormLabel, Slider, Select, Button } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
 import apis from '../../apis/calculator';
+import { toast } from 'react-toastify';
+import { Container, Paper, Typography, TextField, Box, MenuItem, FormLabel, Slider, Select, Button } from '@mui/material';
 
 const interestRate = [
   {

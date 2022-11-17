@@ -18,7 +18,6 @@ const Cashflow = (props) => {
   const cashInflow = incomeItems.reduce((total, income) => {
     return total + parseInt(income.amount);
   }, 0);
-  console.log(typeof props.itemList[2].amount)
 
   return(
     <Box sx={{marginBottom: "2em", color: "rgb(210, 142, 157)"}}>

@@ -1,15 +1,12 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import Grid from "@mui/material/Grid";
+import styles from "./Index.scss"
+import SearchBar from "../../components/navbar/SearchBar";
+import { Button, Menu, Grid, Container } from "@mui/material";
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import AutoGraphRoundedIcon from '@mui/icons-material/AutoGraphRounded';
 import PriceChangeRoundedIcon from '@mui/icons-material/PriceChangeRounded';
-import styles from "./Index.scss"
-import SearchBar from "../../components/navbar/SearchBar";
-import Container from '@mui/material/Container';
 
 const Index = (props) => {
+
   return(
     <div className="index">
       <Grid container direction="row" className="main">
@@ -17,12 +14,11 @@ const Index = (props) => {
               <div className="title">
                 <h1>Track property transactions, monitor your invesments.</h1>
               </div>
-            
               <div className="tagline">
                 <h6>The one stop platform for property investors to analyse sale prices and rental rates across Singapore</h6>
               </div>
               <div className="searchbar">
-              <SearchBar projects={props.projects}/>
+                <SearchBar projects={props.projects}/>
               </div>
         </Grid>
 

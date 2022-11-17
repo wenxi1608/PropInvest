@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import ProjectCard from "./Card";
-import Filter from "./Filter"
 import ReactPaginate from "react-paginate";
-import styles from "./Projects.scss";
 import { Container } from "@mui/material";
 
 const Section = (props) => {

@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react"
-import apis from "../../apis/projects"
-import { CircularProgress, Grid } from "@mui/material";
-import styles from "./ProjectPage.scss"
+import { Grid } from "@mui/material";
 
 const RentalData = (props) => {
 

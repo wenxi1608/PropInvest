@@ -1,11 +1,8 @@
-import React, { useEffect, useState} from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import ProjectDetails from './ProjectDetails';
-import apis from "../../apis/calculator"
-import { CircularProgress } from "@mui/material";
+import { useEffect, useState} from "react";
+import ProjectDetails from "./ProjectDetails";
+import apis from "../../apis/calculator";
+import { styled } from "@mui/material/styles";
+import { CircularProgress, Box, Paper } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

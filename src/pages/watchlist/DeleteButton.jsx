@@ -1,7 +1,5 @@
-import * as React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import apis from "../../apis/watchlist";
 
 const DeleteButton = (props) => {
 

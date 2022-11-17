@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react"
-import Section from "./Section"
-import apis from "../../apis/projects"
-import { useParams } from "react-router-dom"
-import { CircularProgress, Grid } from "@mui/material";
+import { useState } from "react";
+import Section from "./Section";
 import Filter from "./Filter";
 import SearchBar from "../../components/navbar/SearchBar";
-import styles from "./Projects.scss"
+import { useParams } from "react-router-dom";
+import { Grid } from "@mui/material";
 
 const ProjectByDistrict = (props) => {
   const params = useParams();

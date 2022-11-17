@@ -1,12 +1,5 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { Link } from "react-router-dom"
-import ProjectByDistrict from "./ProjectByDistrict"
-import { textAlign } from '@mui/system';
+import { Box, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
 const Filter = (props) => {
 

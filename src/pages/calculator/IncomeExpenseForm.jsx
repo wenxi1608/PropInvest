@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import IncomeExpenseTable from "./IncomeExpenseTable";
 import { FormLabel, Select, MenuItem, Grid, Button, Box, TextField, Paper, Table, TableBody, TableContainer } from '@mui/material';
 
 const IncomeExpenseForm = (props) => {
   const token = "Bearer " + localStorage.getItem("user_token");
-  const tokenExists = localStorage.getItem("user_token");
 
   const [open, setOpen] = useState(false);
-  const [editItems, setEditItems] = useState({})
 
   const handleClickOpen = () => {
     setOpen(true);

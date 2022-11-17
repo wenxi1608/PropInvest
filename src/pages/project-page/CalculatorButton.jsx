@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Button from '@mui/material/Button';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import CircularProgress from "@mui/material/CircularProgress";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { useParams } from "react-router-dom";
-// import apis from "../../apis/watchlist";
-import { toast } from "react-toastify";
-import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
-import TableViewRoundedIcon from '@mui/icons-material/TableViewRounded';
-import styles from "./ProjectPage.scss"
+import { useState, useEffect } from "react";
+import apisCalculator from "../../apis/calculator";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import TableViewRoundedIcon from "@mui/icons-material/TableViewRounded";
 
 const CalculatorButton = (props) => {
   
   const [open, setOpen] = useState(false);
+  const [calculatorStatus, setCalculatorStatus] = useState();
 
-  const calculatorExists = props.calculatorStatus.filter((p) => {
+  // Check if a calculator has already been created for this project
+  useEffect(() => {
+    const fetchProjects = async() => {
+      const response = await apisCalculator.getUserCalculators(props.token);
+      setCalculatorStatus(response.data);
+    }
+
+    fetchProjects()
+  }, [])
+
+  const calculatorExists = calculatorStatus?.filter((p) => {
     return p.projectName === props.projectName
   })
   

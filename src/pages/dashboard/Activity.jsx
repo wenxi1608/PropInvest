@@ -1,12 +1,8 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Title from './Title';
+import Title from "./Title";
+import React from "react";
 import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import CalculateRoundedIcon from '@mui/icons-material/CalculateRounded';
 

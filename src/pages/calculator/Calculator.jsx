@@ -1,11 +1,11 @@
-import ProjectDetails from "./ProjectDetails";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import apis from "../../apis/calculator"
-import { CircularProgress, Grid, Box } from "@mui/material";
 import IncomeExpenseForm from "./IncomeExpenseForm";
+import ProjectDetails from "./ProjectDetails";
 import Cashflow from "./Cashflow";
-import { toast } from 'react-toastify';
+import apis from "../../apis/calculator"
+import { toast } from "react-toastify";
+import { CircularProgress, Grid, Box } from "@mui/material";
 
 const Calculator = () => {
 
@@ -16,15 +16,12 @@ const Calculator = () => {
   const projectName = params.projectName.replaceAll("-", " ");
 
   const [calculatorProjects, setCalculatorProjects] = useState();
-  const [loading, setLoading] = useState(true);
-
-  const [cashOutflow, setCashOutflow] = useState(0);
-  const [cashInflow, setCashInflow] = useState(0);
   const [bsd, setBsd] = useState(0);
   const [absd, setAbsd] = useState(0);
   const [downpayment, setDownpayment] = useState(0);
   const [itemList, setItemList] = useState([]);
   const [item, setItem] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import apis from "../../apis/watchlist";
 import WatchlistCard from "./Card";
-import { Container, CircularProgress, Grid, Box, Card, CardContent } from "@mui/material";
 import { toast } from "react-toastify";
+import { Container, CircularProgress, Grid, Box, Card, CardContent } from "@mui/material";
 
 const Section = (props) => {
 
@@ -75,7 +75,7 @@ const Section = (props) => {
         </Box>
       </CardContent>
       </Card>
-          {allProjectsInWatchlist}
+        {allProjectsInWatchlist}
       </Container>
     </div>
   )
